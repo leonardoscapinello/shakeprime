@@ -1,0 +1,20 @@
+### MODULES
+
+@modules.categories.customers=Clientes
+@modules.categories.products=Produtos
+
+### ### CUSTOMER
+@modules.customer.create.title=Cadastrar Cliente
+@modules.customer.edit.title=Perfil de um Cliente
+@modules.customer.index.title=Lista de Clientes
+
+
+### ### PRODUCTS
+@modules.products.index.title=Catálogo de Produtos
+
+### ### VENDA
+@modules.sale.new.title=Novo Pedido
+
+### ERROR PAGES
+@static.error.notfound.title=Página não Encontrada
+@static.error.notfound.message=Não conseguimos encontrar os recursos necessários para carregar a página solicitada. Você deseja abrir um chamado?

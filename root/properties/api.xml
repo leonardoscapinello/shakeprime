@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<api>
+    <authentication>q0BRbabhO0fLwwXt5R8aZOlFCpVkSCAw35MVVKf1OL1Xp60BWUAT9Y99Pt4sRHxqCIGyjEebVcVSy4FKLtOzrlDUFmqxYDHNlT6QIpxwz2mFMsc59y9LFFxvciWMul3p0VJX5vw7zgSx5204T2YbB89I5s5jeR5fG9qWEOVcS0hEIpsHrFTAmwM3CH8EglF32KuX1NRmlqlHCNCZTa8b1UT5C6hSzzTEGpKRp2VkV6QiQVOqJNqyzmz1nzpVmUp
+    </authentication>
+    <authServer>inventuos/api:6674</authServer>
+</api>
+

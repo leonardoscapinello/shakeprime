@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<connection>
+    <server>localhost</server>
+    <port></port>
+    <user>root</user>
+    <password></password>
+    <password_encryption>none</password_encryption>
+    <database>shakeprime</database>
+    <db_model>mysql</db_model>
+</connection>

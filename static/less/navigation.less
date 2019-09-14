@@ -1,0 +1,84 @@
+ul.nav {
+  list-style: none;
+  text-align: center;
+
+  &.right {
+    text-align: right;
+  }
+
+  & li {
+    display: inline-block;
+    position: relative;
+
+    & a {
+      display: block;
+      font-size: 1.1em;
+      color: rgba(255, 255, 255, .7);
+      line-height: 81px;
+      text-decoration: none;
+      margin: 0 10px;
+      border-top: 5px transparent solid;
+      & i {
+        font-size: 1.5em;
+        position: relative;
+        top: 3px;
+        margin-right: 5px;
+      }
+
+      &:hover {
+        border-top: 5px #5bad3e solid;
+        color: rgba(255, 255, 255, 1);
+      }
+    }
+
+    &:hover .explain {
+      left: 0;
+      visibility: visible;
+      opacity: 1;
+    }
+
+    & .explain {
+      text-align: left;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.5s linear;
+      -webkit-transition: all .4s;
+      -moz-transition: all .4s;
+      -ms-transition: all .4s;
+      -o-transition: all .4s;
+      position: absolute;
+      top: calc(100% + 22px);
+      left: -10px;
+      background: #FFFFFF;
+      min-width: 350px;
+      padding: 20px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      -webkit-box-shadow: 0px 10px 17px -5px rgba(0, 0, 0, 0.26);
+      -moz-box-shadow: 0px 10px 17px -5px rgba(0, 0, 0, 0.26);
+      box-shadow: 0px 10px 17px -5px rgba(0, 0, 0, 0.26);
+
+      & h6 {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px rgba(0, 0, 0, .051) solid;
+      }
+
+      &:after {
+        bottom: 100%;
+        left: 10%;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border: solid transparent;
+        border-color: 0 rgba(255, 255, 255, 0);
+        border-bottom-color: #ffffff;
+        border-width: 10px;
+        margin-left: -10px;
+      }
+    }
+  }
+}

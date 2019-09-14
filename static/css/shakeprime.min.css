@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&display=swap');
+@font-face {
+  font-family: 'black_coffee';
+  src: url('../fonts/blackcoffee/black-coffee1.woff2') format('woff2'), url('./fonts/blackcoffee/black-coffee1.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+}
+html {
+  height: 100%;
+}
+body {
+  margin: 0;
+  height: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 700;
+  color: #47495a;
+  font-variant-ligatures: common-ligatures;
+}
+.h1,
+h1 {
+  font-size: 2.5rem;
+}
+.h2,
+h2 {
+  font-size: 2rem;
+}
+.h3,
+h3 {
+  font-size: 1.75rem;
+}
+.h4,
+h4 {
+  font-size: 1.5rem;
+}
+.h5,
+h5 {
+  font-size: 1.25rem;
+}
+.h6,
+h6 {
+  font-size: 1rem;
+}
+h2.blackcoffee {
+  font-size: 4em;
+}
+h1.company {
+  background: url('../img/shakeprime.png');
+  background-size: 98%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 60px;
+  height: 60px;
+  margin: 10px 0;
+  text-indent: -9999px;
+}
+h1.company.color {
+  background: url('../img/shakeprime-color.png');
+  background-size: 98%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+h1.company.color.blackwhite {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+#header {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  border-bottom: 1px rgba(255,255,255,0.25) solid;
+  -webkit-transition: all .4s;
+  -moz-transition: all .4s;
+  -ms-transition: all .4s;
+  -o-transition: all .4s;
+  transition: all .4s;
+}
+#header.scrolling,
+#header:hover {
+  background: #ffffff;
+  -webkit-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.12);
+  -moz-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.12);
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.12);
+}
+#header.scrolling h1.company,
+#header:hover h1.company {
+  transition: all 1s;
+  background: url("../img/shakeprime-color.png");
+  background-size: 98%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+#header.scrolling ul li a,
+#header:hover ul li a {
+  color: rgba(0,0,0,0.8);
+}
+.blackcoffee {
+  font-family: 'black_coffee', Arial, serif;
+}
+.ruge {
+  font-size: 2.9em;
+}
+.section {
+  background-color: #F3FAFD;
+  padding: 125px 0;
+}
+.section.chocolat {
+  background: #ffffff;
+}
+.section.black {
+  background: #f1f2f4;
+}
+.section.light-blue {
+  background: #f3e8e9;
+}
+.section.no-bottom {
+  padding-bottom: 0;
+}
+.section.footer {
+  padding: 50px 0;
+}
+.section.footer .navigation {
+  margin-top: 20px;
+}
+.section.footer .navigation li {
+  display: block;
+  list-style: none;
+}
+.section.footer .navigation li a {
+  color: #2d2d2d;
+  line-height: 25px;
+  text-decoration: none;
+  display: inline-block;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+.section.footer .navigation li a:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+  text-decoration: underline;
+}
+.color.blue {
+  color: #5EC0E6;
+}
+.color.white {
+  color: #FFFFFF;
+}
+.color.yellow {
+  color: #c98d12;
+}
+.color.green {
+  color: #57AC3E;
+}
+.color.grape {
+  color: #843944;
+}
+.color.chocolat {
+  color: #0b0300;
+}
+.chocolate-image {
+  position: absolute;
+  width: 550px;
+  right: 0;
+  max-width: 100%;
+}
+p.large {
+  font-size: 1.3em;
+  margin: 30px 0;
+  line-height: 30px;
+}
+.ParallaxVideo {
+  height: 300px;
+  padding: 155px 0;
+  background: rgba(0,0,0,0.75);
+}
+.ParallaxVideo.inside-content {
+  height: auto;
+  padding: 160px 0;
+  padding-bottom: 60px;
+}
+.ParallaxVideo video {
+  min-width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: -999;
+  opacity: 1;
+}
+.ParallaxVideo h1 {
+  color: #fff;
+  font-size: 76px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+button {
+  padding: 7px 35px !important;
+  background: transparent;
+  border-radius: 50px;
+  border: 2px #ffffff solid !important;
+  cursor: pointer;
+  color: #FFF;
+  font-size: 1.2em;
+}
+button:hover {
+  background: #FFFFFF !important;
+  color: #2d2d2d !important;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+button.green {
+  border-color: #5BAD3E !important;
+  color: #5BAD3E !important;
+}
+button.green:hover {
+  background: #5BAD3E !important;
+  color: #ffffff !important;
+}
+.content {
+  padding: 40px 0;
+  background: #FFF;
+  min-height: 500px;
+}
