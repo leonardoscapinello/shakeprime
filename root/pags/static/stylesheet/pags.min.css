@@ -45,8 +45,8 @@ body.dark {
   text-transform: uppercase;
 }
 #dashview p {
-  line-height: 30px;
-  font-size: 1em;
+  line-height: 22px;
+  font-size: 12px;
 }
 #dashview .widget {
   margin: 5px;
@@ -388,6 +388,7 @@ select {
   font-size: 15px;
 }
 .form_input input[type="text"],
+.form_input input[type="number"],
 .form_input input[type="password"],
 .form_input select,
 .form_input input[type="email"] {
@@ -406,18 +407,21 @@ select {
   transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, -webkit-transform 0.2s ease;
 }
 .form_input input[type="text"]:read-only,
+.form_input input[type="number"]:read-only,
 .form_input input[type="password"]:read-only,
 .form_input select:read-only,
 .form_input input[type="email"]:read-only {
   color: rgba(255,255,255,0.2);
 }
 .form_input input[type="text"].noicon,
+.form_input input[type="number"].noicon,
 .form_input input[type="password"].noicon,
 .form_input select.noicon,
 .form_input input[type="email"].noicon {
   padding: 16px 20px 16px 20px;
 }
 .form_input input[type="text"].noicon:focus,
+.form_input input[type="number"].noicon:focus,
 .form_input input[type="password"].noicon:focus,
 .form_input select.noicon:focus,
 .form_input input[type="email"].noicon:focus {
@@ -426,12 +430,14 @@ select {
   transform: translate3d(5px,0,0);
 }
 .form_input input[type="text"]:hover,
+.form_input input[type="number"]:hover,
 .form_input input[type="password"]:hover,
 .form_input select:hover,
 .form_input input[type="email"]:hover {
   border-color: #3F484E;
 }
 .form_input input[type="text"]:focus,
+.form_input input[type="number"]:focus,
 .form_input input[type="password"]:focus,
 .form_input select:focus,
 .form_input input[type="email"]:focus {
@@ -440,6 +446,7 @@ select {
   transform: translate3d(10px,0,0);
 }
 .form_input input[type="text"]:focus + label span,
+.form_input input[type="number"]:focus + label span,
 .form_input input[type="password"]:focus + label span,
 .form_input select:focus + label span,
 .form_input input[type="email"]:focus + label span {
@@ -938,4 +945,16 @@ td:hover .product_image_small .thumb img {
   line-height: 30px;
   font-size: 14px;
   color: #fff;
+}
+.product_name {
+  display: block;
+  font-size: 2em;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+table {
+  margin-top: 20px;
+}
+table tr td {
+  font-size: 1.2em;
 }

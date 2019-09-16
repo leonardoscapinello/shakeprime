@@ -50,7 +50,7 @@ if ($cart !== null) {
 
 
     }
-}else{
+} else {
     $selectUser = true;
 }
 
@@ -197,7 +197,7 @@ $productList = $products->getList();
                 $list = $products_list;
                 for ($i = 0; $i < count($list); $i++) {
                     ?>
-                    <tr class="selectable small-vh">
+                    <tr class="selectable small-vh" onClick="editCartItem('<?= $list[$i]['id_sale_product'] ?>','<?= $list[$i]['quantity'] ?>');">
                         <td><?= base64_decode($list[$i]['product_name']) ?></td>
                         <td><?= ($list[$i]['quantity']) ?></td>
                         <td><?= $number->singleMoney($list[$i]['volume']) ?></td>
@@ -276,7 +276,26 @@ $productList = $products->getList();
         window.setTimeout(function () {
             Added.fire({
                 onClose: () => {
-                    window.location.href = "<?=$this->getModuleURLByKey("P00005") . "?cart=" . $sales->getUniqueCode()?>";
+                    window.history.pushState({}, document.title, "/" + '<?=BASE_PATH_PAGS . $this->getModuleURLByKey("P00005", true) . "?cart=" . $sales->getUniqueCode()?>');
+                }
+            });
+
+        }, 100);
+        <?php }else if(get_request("add") === "success"){ ?>
+        const Added = Swal.mixin({
+            toast: false,
+            type: 'success',
+            title: 'Item atualizado com sucesso!',
+            text: 'Só um instante, estamos atualizando os cálculos.',
+            showConfirmButton: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            timer: 1500
+        });
+        window.setTimeout(function () {
+            Added.fire({
+                onClose: () => {
+                    window.history.pushState({}, document.title, "/" + '<?=BASE_PATH_PAGS . $this->getModuleURLByKey("P00005", true) . "?cart=" . $sales->getUniqueCode()?>');
                 }
             });
 
@@ -295,7 +314,7 @@ $productList = $products->getList();
         window.setTimeout(function () {
             Added.fire({
                 onClose: () => {
-                    window.location.href = "<?=$this->getModuleURLByKey("P00005") . "?cart=" . $sales->getUniqueCode()?>";
+                    window.history.pushState({}, document.title, "/" + '<?=BASE_PATH_PAGS . $this->getModuleURLByKey("P00005", true) . "?cart=" . $sales->getUniqueCode()?>');
                 }
             });
 
@@ -376,6 +395,12 @@ $productList = $products->getList();
 
         function sanitizeSearch(str) {
             return str.replace(/[^0-9a-z]/gi, '').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        }
+
+        function editCartItem(id, qtd) {
+            Toast.fire({
+                html: `<iframe src="<?=PAGS_EDGE?>sales/editProductOnCart.php?id=${id}&cart=<?= $sales->getUniqueCode()?>&qtd=${qtd}" style="width:100%;height:290px;border:none;" allowtransparency="true" scrolling="no"></iframe>`,
+            });
         }
 
     </script>

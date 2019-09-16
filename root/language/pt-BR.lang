@@ -10,7 +10,11 @@
 
 
 ### ### PRODUCTS
-@modules.products.index.title=Catálogo de Produtos
+@modules.products.index.title=Catálogo
+
+### ### STOCK
+@modules.stock.new.title=Estoque
+@modules.stock.edit.title=Editar um item do estoque
 
 ### ### VENDA
 @modules.sale.new.title=Novo Pedido

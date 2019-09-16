@@ -48,6 +48,7 @@ require_once(DIRNAME . "../class/Address.php");
 require_once(DIRNAME . "../class/Products.php");
 require_once(DIRNAME . "../class/Sales.php");
 require_once(DIRNAME . "../class/SalesProducts.php");
+require_once(DIRNAME . "../class/Stock.php");
 
 require_once(DIRNAME . "../class/PHPMailer-6.0.3/src/Exception.php");
 require_once(DIRNAME . "../class/PHPMailer-6.0.3/src/PHPMailer.php");
@@ -76,9 +77,9 @@ $address = new Address();
 $products = new Products();
 $sales = new Sales();
 $salesProducts = new SalesProducts();
+$stock = new Stock();
 
 /* ============ CONSTANTS */
-
 
 define("SERVER", $settings->getServerURL());
 define("DASHBOARD", $settings->getDashboardURL());

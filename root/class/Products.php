@@ -35,6 +35,23 @@ class Products
         }
     }
 
+    public function getInStockList()
+    {
+        $error = "";
+        global $database;
+        global $account;
+        try {
+            $id_account = $account->getIdAccount();
+        $database->query("SELECT * FROM (".$this->main_query.") AS pr WHERE stock_quantity > 0");
+            $database->bind(1, $id_account);
+            $database->bind(2, $id_account);
+            $database->bind(3, $id_account);
+            return $database->resultset();
+        } catch (Exception $exception) {
+            error_log($exception);
+        }
+    }
+
     /**
      * @return mixed
      */

@@ -78,6 +78,7 @@ class Module
         global $number;
         global $sales;
         global $salesProducts;
+        global $stock;
         try {
             if ($this->getModuleExists()) {
                 $file = $this->template_path . $this->getModulePage();
