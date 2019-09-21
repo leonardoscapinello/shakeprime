@@ -47,7 +47,7 @@ require_once("root/settings/orchestrator.php");
                     </div>
                     <div class="col col-2">
                         <ul class="nav right">
-                            <li><a href="#"><i class="far fa-user-circle"></i> Fazer Login</a></li>
+                            <li><a href="#"><i class="far fa-user-circle"></i> Samuel Camargo</a></li>
                         </ul>
                     </div>
                 </div>

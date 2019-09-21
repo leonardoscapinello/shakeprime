@@ -1,5 +1,5 @@
 <?php
-$name = "oi";
+$name = "";
 $user = get_request("user");
 $birthday = $zipcode = $neighborhood = $number = $stret = $state = $city = "";
 

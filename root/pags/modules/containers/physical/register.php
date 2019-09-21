@@ -1,4 +1,98 @@
-<form action="" method="POST">
+<?php
+$user = get_request("user");
+$birthday = $zipcode = $neighborhood = $number = $stret = $state = $city = "";
+
+if ($user !== null && $user !== "") {
+
+    $customer->load($user);
+    $customer->load($user);
+    $name = $customer->getName();
+    $phone = $customer->getPhone();
+    $mobile = $customer->getMobile();
+    $email = $customer->getEmail();
+    $username = $customer->getEmail();
+    $birthday = $customer->getBirthday();
+    if ($birthday !== null && $birthday !== "") $birthday = date("d/m/Y", strtotime($birthday));
+
+    $picture_image = $customer->getProfilePicture();
+
+} else {
+    die;
+}
+?>
+
+
+<div class="row">
+    <div class="col-sm-12 col-lg-12 col-xl-3">
+        <div class="widget" align="center">
+            <img src="<?= $picture_image ?>" style="max-width: 100%;border-radius:4px;max-height: 202px;">
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-12 col-xl-9">
+        <div class="widget">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 col-xl-12">
+                    <div class="form_input">
+                        <input autocomplete="off" type="text" id="name" name="name" value="<?= $name; ?>"
+                               placeholder="Nome" required>
+                        <label for="name">
+                            <span class="floating_icon"><i class="far fa-user"></i></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 col-xl-6">
+                    <div class="form_input">
+                        <input autocomplete="off" type="text" id="phone" class="phone_with_ddd" name="phone"
+                               value="<?= $phone; ?>"
+                               placeholder="Telefone">
+                        <label for="phone">
+                            <span class="floating_icon"><i class="far fa-phone"></i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12 col-xl-6">
+                    <div class="form_input">
+                        <input autocomplete="off" type="text" id="mobile" class="mobile" name="mobile"
+                               value="<?= $mobile; ?>"
+                               placeholder="WhatsApp">
+                        <label for="mobile">
+                            <span class="floating_icon"><i class="fab fa-whatsapp"></i></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 col-xl-8">
+                    <div class="form_input">
+                        <input autocomplete="off" type="text" id="email" name="email" value="<?= $email; ?>"
+                               placeholder="E-mail" required>
+                        <label for="email">
+                            <span class="floating_icon"><i class="far fa-envelope"></i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-lg-12 col-xl-4">
+                    <div class="form_input">
+                        <input autocomplete="off" type="text" id="birthday" class="date" name="birthday"
+                               value="<?= $birthday; ?>"
+                               placeholder="Data de Nascimento">
+                        <label for="birthday">
+                            <span class="floating_icon"><i class="far fa-calendar"></i></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
+<form action="" method="GET">
+
+    <input type="hidden" name="id_account" id="id_account">
 
     <h5 class="c__title">Índice de Massa Corpórea</h5>
 
@@ -6,8 +100,9 @@
         <div class="col-sm-12 col-lg-12 col-xl-4">
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="number" id="stock_quantity" value="0" name="stock_quantity" placeholder="Quantidade encomenda" class="number">
-                    <label for="email"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
+                    <input autocomplete="off" type="text" id="body_mass" value="0" name="body_mass"
+                           placeholder="Índice de Massa Corpórea" class="number">
+                    <label for="body_mass"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
             </div>
         </div>
@@ -59,10 +154,12 @@
 
     <div class="row">
         <div class="col-sm-12 col-lg-12 col-xl-4">
+
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="number" id="stock_quantity" value="0" name="stock_quantity" placeholder="Quantidade encomenda" class="number">
-                    <label for="email"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
+                    <input autocomplete="off" type="text" id="body_fat" value="0" name="body_fat"
+                           placeholder="Gordura Corporal" class="number">
+                    <label for="body_fat"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
             </div>
         </div>
@@ -138,8 +235,9 @@
         <div class="col-sm-12 col-lg-12 col-xl-4">
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="number" id="stock_quantity" value="0" name="stock_quantity" placeholder="Quantidade encomenda" class="number">
-                    <label for="email"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
+                    <input autocomplete="off" type="text" id="muscle_mass" value="0" name="muscle_mass"
+                           placeholder="Massa Muscular" class="number">
+                    <label for="muscle_mass"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
             </div>
         </div>
@@ -215,8 +313,9 @@
         <div class="col-sm-12 col-lg-12 col-xl-4">
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="number" id="stock_quantity" value="0" name="stock_quantity" placeholder="Quantidade encomenda" class="number">
-                    <label for="email"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
+                    <input autocomplete="off" type="text" id="visceral_fat" value="0" name="visceral_fat"
+                           placeholder="Gordura Visceral" class="number">
+                    <label for="visceral_fat"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
             </div>
         </div>
@@ -244,7 +343,25 @@
                     </tr>
                     </tbody>
                 </table>
+
+
             </div>
         </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-4"></div>
+
+        <div class="col-sm-12 col-lg-12 col-xl-3">
+            <div class="">
+                <div class="form_input">
+                    <button>Salvar Avaliação</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="offset-4"></div>
+
+
     </div>
 </form>

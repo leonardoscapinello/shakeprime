@@ -15,6 +15,7 @@ class Account
     private $is_active;
     private $birthday;
     private $session_cookie_name = "meupags";
+    private $profile_picture;
 
     private $is_admin = "N";
     private $is_prime = "N";
@@ -91,6 +92,15 @@ class Account
     public function setIdAccount($id_account)
     {
         $this->id_account = $id_account;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getProfilePicture()
+    {
+        return $this->profile_picture;
     }
 
     /**
