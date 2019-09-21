@@ -553,14 +553,14 @@ p {
   background: #343C43;
   height: 3px;
 }
+.odd {
+  background: #343C43 !important;
+}
 .price_section .price_block {
   padding: 6px 0;
   display: flex;
   flex-direction: row;
   background: #2C343A;
-}
-.price_section .price_block.odd {
-  background: #343C43;
 }
 .price_section .price_block .caption {
   flex: 1;
@@ -957,4 +957,16 @@ table {
 }
 table tr td {
   font-size: 1.2em;
+}
+h5.c__title {
+  color: rgba(255,255,255,0.3);
+  font-size: 1.4em;
+  padding-top: 4px;
+  font-weight: 600;
+  margin: 5px 20px;
+}
+.sml_tbl tr th,
+.sml_tbl tr td {
+  padding: 8px 14px !important;
+  line-height: 12px;
 }

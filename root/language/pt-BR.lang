@@ -7,6 +7,7 @@
 @modules.customer.create.title=Cadastrar Cliente
 @modules.customer.edit.title=Perfil de um Cliente
 @modules.customer.index.title=Lista de Clientes
+@modules.categories.physical=Avaliação Física
 
 
 ### ### PRODUCTS
@@ -18,6 +19,10 @@
 
 ### ### VENDA
 @modules.sale.new.title=Novo Pedido
+
+### ### AVALIAÇÃO FÍSICA
+@modules.physical.create.title=Nova Avaliação Física
+
 
 ### ERROR PAGES
 @static.error.notfound.title=Página não Encontrada
