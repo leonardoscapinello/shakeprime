@@ -167,7 +167,7 @@ class Sales
         global $logger;
         try {
             $register_by = $account->isLogged();
-            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_account WHERE sa.id_account = ?");
+            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name, sa.sale_start_date, CASE WHEN sp.id_sale IS NULL THEN 0 ELSE sp.id_sale END AS products, volume, product_purchase_price, profit  FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_customer LEFT JOIN (SELECT id_sale, COUNT(id_sale) FROM sales_products GROUP BY id_sale) sp ON sp.id_sale = sa.id_shopping_cart WHERE sa.id_account = ? AND status = 1 ORDER BY sale_start_date DESC");
             $database->bind(1, $register_by);
             return $database->resultset();
         } catch (Exception $exception) {
@@ -176,6 +176,48 @@ class Sales
             if ($error !== "") {
                 $logger->error($error);
             }
+        }
+    }
+
+    public function getSalesWithFilter($filter)
+    {
+        $error = "";
+        global $database;
+        global $account;
+        global $logger;
+        try {
+            $register_by = $account->isLogged();
+            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name, sa.sale_start_date, CASE WHEN sp.id_sale IS NULL THEN 0 ELSE sp.id_sale END AS products, volume, product_purchase_price, profit  FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_customer LEFT JOIN (SELECT id_sale, COUNT(id_sale) FROM sales_products GROUP BY id_sale) sp ON sp.id_sale = sa.id_shopping_cart WHERE sa.id_account = :register_by AND (LOWER(sa.unique_code) LIKE :term OR LOWER(ac.name) LIKE :term)  ORDER BY sale_start_date DESC");
+            $database->bind(":register_by", $register_by);
+            $database->bind(":term", "%" . strtolower($filter) . "%");
+            return $database->resultset();
+        } catch (Exception $exception) {
+            $error = $exception;
+        } finally {
+            if ($error !== "") {
+                $logger->error($error);
+            }
+        }
+    }
+
+    public function setTotals($unique_code, $sale_price, $final_price, $volume, $profit, $product_purchase_price)
+    {
+        global $database;
+        global $account;
+        global $logger;
+        try {
+            $register_by = $account->isLogged();
+            $database->query("UPDATE sales SET sale_price = ?, final_price = ?, volume = ?, profit = ?, product_purchase_price = ? WHERE unique_code = ? AND id_account = ?");
+            $database->bind(1, $sale_price);
+            $database->bind(2, $final_price);
+            $database->bind(3, $volume);
+            $database->bind(4, $profit);
+            $database->bind(5, $product_purchase_price);
+            $database->bind(6, $unique_code);
+            $database->bind(7, $register_by);
+            $database->execute();
+        } catch (Exception $exception) {
+            error_log($exception);
         }
     }
 

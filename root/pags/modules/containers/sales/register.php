@@ -7,6 +7,7 @@ $name = $email = $birthday = "";
 
 $sold_price_total = 0;
 $sale_price_total = 0;
+$purchase_price_total = 0;
 $volume_total = 0;
 
 $selectUser = false;
@@ -46,17 +47,32 @@ if ($cart !== null) {
     $email = $customer->getEmail();
     $birthday = date("d/m/Y", strtotime($customer->getBirthday()));
     $list = $products_list;
+
+    $discount_level = $account->getDiscountLevel();
+    $purchase_level = "sale_price";
+    if ($discount_level === "25") $purchase_level = "level_price_a";
+    if ($discount_level === "35") $purchase_level = "level_price_b";
+    if ($discount_level === "42") $purchase_level = "level_price_c";
+    if ($discount_level === "50") $purchase_level = "level_price_d";
+
     for ($i = 0; $i < count($list); $i++) {
         $sold_price_total_iter = $list[$i]['quantity'] * $list[$i]['sold_price'];
         $sale_price_total_iter = $list[$i]['quantity'] * $list[$i]['sale_price'];
         $volume_total_iter = $list[$i]['quantity'] * $list[$i]['volume'];
+        $product_purchase_price = $list[$i]['quantity'] * $list[$i][$purchase_level];
+
 
         $sold_price_total = $sold_price_total + $sold_price_total_iter;
         $sale_price_total = $sale_price_total + $sale_price_total_iter;
         $volume_total = $volume_total + $volume_total_iter;
-
+        $purchase_price_total = $purchase_price_total + $product_purchase_price;
 
     }
+
+    $profit = ($sold_price_total - $purchase_price_total);
+    $sales->setTotals($cart, $sale_price_total, $sold_price_total, $volume_total, $profit, $purchase_price_total);
+
+
 } else {
     $selectUser = true;
 }

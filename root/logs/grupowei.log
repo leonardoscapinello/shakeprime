@@ -97,3 +97,4 @@ Stack trace:
 #4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
 #5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
 #6 {main}
+[03-11-2019 22:37:24:000000 UTC +0(Sunday)]	[ERROR]	

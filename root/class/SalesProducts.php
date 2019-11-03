@@ -122,7 +122,7 @@ class SalesProducts
         try {
 
             $id_account = $account->isLogged();
-            $database->query("SELECT sp.id_sale_product, sp.sale_price, sp.sold_price, sp.discount_applied, sp.quantity, pr.product_name, pr.product_image, pr.volume FROM sales_products sp LEFT JOIN products pr ON pr.id_product = sp.id_product WHERE sp.id_sale = (SELECT id_shopping_cart FROM sales WHERE unique_code = ? AND id_account = ?)");
+            $database->query("SELECT sp.id_sale_product, sp.sale_price, sp.sold_price, sp.discount_applied, sp.quantity, pr.product_name, pr.product_image, pr.volume, pr.level_price_a, pr.level_price_b, pr.level_price_c, pr.level_price_d FROM sales_products sp LEFT JOIN products pr ON pr.id_product = sp.id_product WHERE sp.id_sale = (SELECT id_shopping_cart FROM sales WHERE unique_code = ? AND id_account = ?)");
             $database->bind(1, $unique_code);
             $database->bind(2, $id_account);
             $prod = $database->resultset();

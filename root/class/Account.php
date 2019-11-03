@@ -16,6 +16,7 @@ class Account
     private $birthday;
     private $session_cookie_name = "meupags";
     private $profile_picture;
+    private $discount_level;
 
     private $is_admin = "N";
     private $is_prime = "N";
@@ -85,6 +86,16 @@ class Account
     {
         return $this->id_account;
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getDiscountLevel()
+    {
+        return $this->discount_level;
+    }
+
 
     /**
      * @param mixed $id_account
