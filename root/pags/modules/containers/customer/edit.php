@@ -15,7 +15,6 @@ if ($user !== null && $user !== "") {
         $customer->setBirthday(get_request("birthday"));
         $c_save = $customer->update($user);
 
-
         $address->setZipcode(get_request("zipcode"));
         $address->setAddress(get_request("address"));
         $address->setNumber(get_request("number"));
@@ -51,29 +50,59 @@ if ($user !== null && $user !== "") {
     $state = $address->getState();
     $city = $address->getCity();
 
+    $analysis = $customer->getAnalysis($user);
+    $picture_image = $customer->getProfilePicture();
+
 }
 ?>
 
 
-<input autocomplete="off" type="hidden" name="user" value="<?= $user ?>">
-<input autocomplete="off" type="hidden" name="action" value="update">
 <div class="row">
     <div class="col-sm-12 col-lg-12 col-xl-3">
         <div class="widget">
+
+            <div class="profile-picture-ph" align="center">
+                <img src="<?= $picture_image ?>" style="max-width: 100%;border-radius:4px;max-height: 202px;">
+            </div>
+
             <div class="form_input">
                 <button onClick="newSale(<?= $user ?>);return false;">Novo Pedido</button>
                 <button onClick="newExam(<?= $user ?>);return false;">Nova Avaliação</button>
-                <button onClick="newMessage(<?= $user ?>);return false;">Enviar Mensagem</button>
+                <?php if ($account->getIsAdmin() === "Y") { ?>
+                    <?php if ($customer->getIsPrime() === "Y") { ?>
+                        <?php if ($customer->getForceReset() === "Y") { ?>
+                            <button onClick="newPrime(<?= $user ?>);return false;">Enviar convite novamente</button>
+                        <?php } else { ?>
+                            <button onClick="removePrime(<?= $user ?>);return false;">Remover privilégio Prime</button>
+                        <?php } ?>
+                    <?php } else { ?>
+                        <button onClick="newPrime(<?= $user ?>);return false;">Promover a Prime</button>
+                    <?php } ?>
+                <?php } ?>
             </div>
             <div class="separator"></div>
 
-            <p align="center">Ainda nenhum pedido foi feito para esse usuário.</p>
+            <p>Últimas avaliações para este cliente:</p>
+            <ul class="analysis">
+                <?php
+                for ($i = 0; $i < count($analysis); $i++) { ?>
+                    <li><a href="<?php echo SERVER_PAGS . "physical/view?analysis=" . $analysis[$i]['id_analysis'] ?>">
+                            <i class="far fa-stethoscope"></i>
+                            <?php echo date("d/m/Y H:i", strtotime($analysis[$i]['insert_time'])) ?>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
 
         </div>
     </div>
     <div class="col-sm-12 col-lg-12 col-xl-9">
         <div class="widget">
             <form action="" method="POST">
+
+                <input autocomplete="off" type="hidden" name="user" value="<?= $user ?>">
+                <input autocomplete="off" type="hidden" name="action" value="update">
+
                 <h4>Informações Pessoais</h4>
 
                 <div class="row">
@@ -156,7 +185,7 @@ if ($user !== null && $user !== "") {
                             <input autocomplete="off" type="text" id="address" name="address"
                                    value="<?= $street; ?>"
                                    placeholder="Endereço">
-                            <label for="phone">
+                            <label for="address">
                                 <span class="floating_icon"><i class="far fa-map-marker"></i></span>
                             </label>
                         </div>
@@ -215,6 +244,18 @@ if ($user !== null && $user !== "") {
 
     function newSale(user_id) {
         window.location.href = "<?=$this->getModuleURLByKey('P00005'); ?>?user=" + user_id;
+    }
+
+    function newExam(user_id) {
+        window.location.href = "<?=$this->getModuleURLByKey('P00008'); ?>?user=" + user_id;
+    }
+
+    function newPrime(user_id) {
+        window.location.href = "<?=$this->getModuleURLByKey('P00010'); ?>?user=" + user_id;
+    }
+
+    function removePrime(user_id) {
+        window.location.href = "<?=$this->getModuleURLByKey('P00012'); ?>?user=" + user_id;
     }
 
 

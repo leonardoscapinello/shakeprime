@@ -5,11 +5,13 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^pags$                  root/pags/account/accounts.php?form=login [L]
 RewriteRule ^pags/$                 root/pags/account/accounts.php?form=login [L]
 RewriteRule ^pags/login$            root/pags/account/accounts.php?form=login [L]
-RewriteRule ^pags/register$         root/pags/account/accounts.php?form=register [L]
+RewriteRule ^pags/register/reset$         root/pags/account/resetPassword.php?token=$1 [L,QSA]
+RewriteRule ^pags/register/(.*)$         root/pags/account/createPrimeAccount.php?token=$1 [L,QSA]
 RewriteRule ^pags/logout$           root/pags/account/logout.php [L]
 RewriteRule ^pags/d/(.*)$           root/pags/index.php?module=$1 [L,QSA]
 RewriteRule ^pags.static/(.*)$      root/pags/static/$1 [L]
 RewriteRule ^pags.edge/(.*)$        root/pags/modules/edge/$1 [L]
+RewriteRule ^pags.notifications/(.*)$        root/pags/static/notifications/$1 [L]
 
 RewriteRule ^/([^/]*)$ thread.php?page=$1 [L]
 

@@ -34,13 +34,14 @@ class Sales
             $database->bind(3, $unique_code);
             $database->execute();
             return $unique_code;
-        }else{
+        } else {
             return $in_progress;
         }
 
     }
 
-    private function createUniqueCode(){
+    private function createUniqueCode()
+    {
         return strtoupper(uniqid("SP"));
     }
 
@@ -82,13 +83,13 @@ class Sales
             $database->query("SELECT * FROM sales_products sp LEFT JOIN products pr ON pr.id_product = sp.id_product WHERE sp.id_sale = (SELECT id_shopping_cart FROM sales WHERE unique_code = ?)");
             $database->bind(1, $cart);
             $rs = $database->resultset();
-            for($i = 0;$i < count($rs);$i++){
+            for ($i = 0; $i < count($rs); $i++) {
 
                 $sale_price = $product_price = $rs[$i]['sale_price'];
-                if($discount_level === "25") $product_price = $rs[$i]['level_price_a'];
-                if($discount_level === "35") $product_price = $rs[$i]['level_price_b'];
-                if($discount_level === "42") $product_price = $rs[$i]['level_price_c'];
-                if($discount_level === "50") $product_price = $rs[$i]['level_price_d'];
+                if ($discount_level === "25") $product_price = $rs[$i]['level_price_a'];
+                if ($discount_level === "35") $product_price = $rs[$i]['level_price_b'];
+                if ($discount_level === "42") $product_price = $rs[$i]['level_price_c'];
+                if ($discount_level === "50") $product_price = $rs[$i]['level_price_d'];
 
                 $discount_amount = $sale_price - $product_price;
 
@@ -131,6 +132,50 @@ class Sales
             }
         } catch (Exception $exception) {
             error_log($exception);
+        }
+    }
+
+    public function finish($unique_code, $delivery, $payment_method = "M", $sale_price, $final_price)
+    {
+        global $charset;
+        global $database;
+        global $account;
+        try {
+            $id_account = $account->getIdAccount();
+            if ($delivery === "TODAY") {
+                $database->query("UPDATE sales SET sale_done_date = CURRENT_TIMESTAMP, payment_method = ?, is_closed = 'Y', delivery_date = CURRENT_TIMESTAMP, status = 3, final_price = ?, sale_price = ? WHERE id_account = ? AND unique_code = ?");
+            } else {
+                $database->query("UPDATE sales SET sale_done_date = CURRENT_TIMESTAMP, payment_method = ?, is_closed = 'Y', delivery_date = NULL, status = 2, final_price = ?, sale_price = ?  WHERE id_account = ? AND unique_code = ?");
+            }
+            $database->bind(1, $payment_method);
+            $database->bind(2, $final_price);
+            $database->bind(3, $sale_price);
+            $database->bind(4, $id_account);
+            $database->bind(5, $unique_code);
+            $database->execute();
+        } catch (Exception $exception) {
+            error_log($exception);
+        }
+    }
+
+
+    public function getSales()
+    {
+        $error = "";
+        global $database;
+        global $account;
+        global $logger;
+        try {
+            $register_by = $account->isLogged();
+            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_account WHERE sa.id_account = ?");
+            $database->bind(1, $register_by);
+            return $database->resultset();
+        } catch (Exception $exception) {
+            $error = $exception;
+        } finally {
+            if ($error !== "") {
+                $logger->error($error);
+            }
         }
     }
 
@@ -278,9 +323,6 @@ class Sales
     {
         return $this->is_closed;
     }
-
-
-
 
 
 }

@@ -2,24 +2,14 @@
 
 require_once(__DIR__ . "/../../settings/orchestrator.php");
 require_once(__DIR__ . "/../settings/pags.php");
-$error = "";
-if (!$account->isLogged()) {
-    if (get_request("action") === "authenticate") {
-        $account->setAuthUsername(get_request("username"));
-        $account->setAuthPassword(get_request("password"));
-        if ($account->login()) {
-            header("location: " . WELCOME_PAGS);
-            die();
-        } else {
-            $error = "password-no-match";
-        }
-    }
-} else {
+$token = get_request("token");
+
+if($token === null){
     header("location: " . WELCOME_PAGS);
     die();
+}else{
+    $accountToken->load($token);
 }
-
-$less->compileFile("../static/less/pags.less", "../static/stylesheet/pags.min.css");
 
 ?>
 <!DOCTYPE html>
@@ -45,37 +35,46 @@ $less->compileFile("../static/less/pags.less", "../static/stylesheet/pags.min.cs
           type="text/css"/>
     <link href="<?= PAGS_STYLESHEET ?>fontawesome5.css?v=<?php echo date("ymdhis"); ?>" rel="stylesheet"
           type="text/css"/>
+
+    <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery-3.2.0.min.js"></script>
+    <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery.mask.js"></script>
+    <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>/sweetalert2.min.js"></script>
 </head>
 <body class="dark">
 <div id="wrapper">
-    <form name="login" action="" method="POST">
-        <input type="hidden" name="action" value="authenticate">
+    <form name="login" action="./reset" method="POST">
+        <input type="hidden" name="token" value="<?=$token?>">
         <div class="account_box">
             <div class="company_login">
                 <img src="<?= PAGS_IMAGES ?>pags-logo-extensive.png">
             </div>
-            <p>Seja bem-vindo(a) ao portal <b>ShakePrime</b> exclusivo para Gestão de Negócios. Entre com seus dados
-                para
-                continuar.</p>
-            <?php if ($error !== "") { ?>
+
+
+            <div style="width:100%;height:5px;background:rgba(255,255,255,.05);position: relative;border-radius:5px;overflow: hidden;margin-top:10px;">
+                <div style="width:33%;background:#00BFED;position: absolute;top:0;left:0;height:5px;transition: all .4s;"></div>
+            </div>
+
+            <h1 style="font-size:2.3em;color: #FFFFFF;margin-top:20px;">Olá, <?=$accountToken->getName(); ?></h1>
+            <p style="text-align: justify">Seja bem-vindo(a) ao portal <b>ShakePrime</b> exclusivo para Gestão de Negócios. Você foi convidado a
+                acessar como administrador, digite o código recebido em seu e-mail cadastrado para continuar a difinição
+                da senha.</p>
+
+
+            <?php if (get_request("sm") !== null) { ?>
                 <div class="login-error">
-                    Usuário ou senha incorretos.
+                    Código de verificação incorreto.
                 </div>
             <?php } ?>
+
+
             <div class="form_input">
-                <input type="text" placeholder="Email" id="username" name="username">
-                <label for="username">
-                    <span class="floating_icon"><i class="far fa-envelope"></i></span>
-                </label>
-            </div>
-            <div class="form_input">
-                <input type="password" placeholder="Senha" name="password" id="password">
-                <label for="password">
+                <input type="text" placeholder="_ _ _ - _ _ _" id="small_token" class="small_token" name="small_token">
+                <label for="small_token">
                     <span class="floating_icon"><i class="far fa-key"></i></span>
                 </label>
             </div>
             <div class="form_input">
-                <button>Fazer Login</button>
+                <button>Continuar para Senha</button>
             </div>
         </div>
     </form>
@@ -85,5 +84,9 @@ $less->compileFile("../static/less/pags.less", "../static/stylesheet/pags.min.cs
     </div>
 </div>
 </body>
-<script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery-2.1.0.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.small_token').mask('000-000', {clearIfNotMatch: true});
+    });
+</script>
 </html>

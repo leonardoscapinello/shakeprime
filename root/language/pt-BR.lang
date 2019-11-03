@@ -19,10 +19,15 @@
 
 ### ### VENDA
 @modules.sale.new.title=Novo Pedido
+@modules.sale.payment.title=Forma de Pagamento
+@modules.sale.finish.title=Conclusão da Compra
+@modules.sale.view.title=Visualizar uma Compra
+@modules.sale.index.title=Lista de Compras
 
 ### ### AVALIAÇÃO FÍSICA
 @modules.physical.create.title=Nova Avaliação Física
-
+@modules.physical.view.title=Visualizar Avaliação Física
+@modules.customer.newPrime.title=Definir perfil como Prime
 
 ### ERROR PAGES
 @static.error.notfound.title=Página não Encontrada

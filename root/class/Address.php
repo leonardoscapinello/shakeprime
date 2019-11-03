@@ -59,13 +59,13 @@ class Address
                 $database->bind(7, base64_encode($this->getCity()));
                 $database->bind(8, $id_account);
                 $database->execute();
+                return $id_account;
             }
         } catch (Exception $e) {
-            echo $e;
-            return false;
-        } finally {
-            return $id_account;
+            error_log($e);
+
         }
+        return false;
     }
 
     /**

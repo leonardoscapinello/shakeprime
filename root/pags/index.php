@@ -7,6 +7,12 @@ if (!$account->isLogged()) {
     die();
 }
 
+$isForceReset = $account->isForceReset();
+if ($isForceReset) {
+    header("location: " . REGISTER_PAGS . "/" . $isForceReset);
+    die();
+}
+
 $less->compileFile("static/less/pags.less", "static/stylesheet/pags.min.css");
 $less->compileFile("static/less/container.less", "static/stylesheet/container.min.css");
 //$less->compileFile("../../account/less/container.less", "account/css/container.min.css");
@@ -33,7 +39,7 @@ $less->compileFile("static/less/container.less", "static/stylesheet/container.mi
     <meta content="" name="author"/>
     <link href="<?= PAGS_STYLESHEET ?>pags.min.css?v=<?php echo date("ymdhis"); ?>" rel="stylesheet" type="text/css"/>
     <link href="<?= PAGS_STYLESHEET ?>container.min.css" rel="stylesheet" type="text/css"/>
-    <link href="<?= PAGS_STYLESHEET ?>fontawesome5.css" rel="stylesheet"  type="text/css"/>
+    <link href="<?= PAGS_STYLESHEET ?>fontawesome5.css" rel="stylesheet" type="text/css"/>
     <link href="<?= PAGS_STYLESHEET ?>sweetalert2.min.css?v=<?php echo date("ymdhis"); ?>" rel="stylesheet"
           type="text/css"/>
     <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery-3.2.0.min.js"></script>
@@ -127,6 +133,7 @@ $less->compileFile("static/less/container.less", "static/stylesheet/container.mi
 </body>
 <script type="text/javascript">
     $(document).ready(function () {
+        $('.small_token').mask('000-000', {clearIfNotMatch: true});
         $('.date').mask('00/00/0000', {clearIfNotMatch: true});
         $('.time').mask('00:00:00', {clearIfNotMatch: true});
         $('.date_time').mask('00/00/0000 00:00:00', {clearIfNotMatch: true});

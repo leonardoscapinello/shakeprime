@@ -1,0 +1,99 @@
+[03-11-2019 21:34:16:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(675): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('asd')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:34:24:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(675): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('a')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:34:31:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(675): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('samara')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:35:19:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(672): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('samara')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:35:22:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(672): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('S')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:36:08:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(672): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('S')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:36:22:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(672): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('S')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:36:25:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(672): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('asasa')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:36:27:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(672): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('Samara')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:36:46:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(673): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('Samara')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}
+[03-11-2019 21:36:50:000000 UTC +0(Sunday)]	[ERROR]	exception 'PDOException' with message 'SQLSTATE[HY093]: Invalid parameter number: mixed named and positional parameters' in C:\wamp64\www\shakeprime\root\class\Database.php:116
+Stack trace:
+#0 C:\wamp64\www\shakeprime\root\class\Database.php(116): PDOStatement->execute()
+#1 C:\wamp64\www\shakeprime\root\class\Database.php(90): Database->execute()
+#2 C:\wamp64\www\shakeprime\root\class\Account.php(673): Database->resultset()
+#3 C:\wamp64\www\shakeprime\root\pags\modules\containers\customer\index.php(29): Account->getCustomersWithFilter('sa')
+#4 C:\wamp64\www\shakeprime\root\class\Module.php(97): require_once('C:\\wamp64\\www\\s...')
+#5 C:\wamp64\www\shakeprime\root\pags\index.php(124): Module->getContent()
+#6 {main}

@@ -49,6 +49,9 @@ require_once(DIRNAME . "../class/Products.php");
 require_once(DIRNAME . "../class/Sales.php");
 require_once(DIRNAME . "../class/SalesProducts.php");
 require_once(DIRNAME . "../class/Stock.php");
+require_once(DIRNAME . "../class/PhysicalAnalysis.php");
+require_once(DIRNAME . "../class/AccountToken.php");
+require_once(DIRNAME . "../class/Mailer.php");
 
 require_once(DIRNAME . "../class/PHPMailer-6.0.3/src/Exception.php");
 require_once(DIRNAME . "../class/PHPMailer-6.0.3/src/PHPMailer.php");
@@ -78,6 +81,10 @@ $products = new Products();
 $sales = new Sales();
 $salesProducts = new SalesProducts();
 $stock = new Stock();
+$physicalAnalysis = new PhysicalAnalysis();
+$accountToken = new AccountsToken();
+$pagsMailer = new Mailer();
+
 
 /* ============ CONSTANTS */
 

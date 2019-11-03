@@ -15,7 +15,7 @@ if (get_request("action") === "register") {
     $customer->setName($name);
     $customer->setEmail($email);
     $customer->setUsername($email);
-    $customer->setPassword("forceReset");
+    $customer->setPassword("shakeprime@123");
     $customer->setForceReset("Y");
     $customer->setIsPrime("Y");
     $customer->setIsAdmin("N");

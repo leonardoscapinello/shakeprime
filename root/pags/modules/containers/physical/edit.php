@@ -1,8 +1,12 @@
 <?php
-$user = get_request("user");
+$analysis = get_request("analysis");
 $birthday = $zipcode = $neighborhood = $number = $stret = $state = $city = "";
 
-if ($user !== null && $user !== "") {
+if ($analysis !== null && $analysis !== "") {
+
+    $physicalAnalysis->load($analysis);
+
+    $user = $physicalAnalysis->getIdAccount();
 
     $customer->load($user);
     $name = $customer->getName();
@@ -14,25 +18,6 @@ if ($user !== null && $user !== "") {
     if ($birthday !== null && $birthday !== "") $birthday = date("d/m/Y", strtotime($birthday));
 
     $picture_image = $customer->getProfilePicture();
-
-    $body_mass = get_request("body_mass");
-    $body_fat = get_request("body_fat");
-    $muscle_mass = get_request("muscle_mass");
-    $visceral_fat = get_request("visceral_fat");
-
-
-    if ($body_mass !== null && $body_fat !== null && $muscle_mass !== null && $visceral_fat !== null) {
-        $physicalAnalysis->setIdAccount($user);
-        $physicalAnalysis->setBodyMass($body_mass);
-        $physicalAnalysis->setBodyFat($body_fat);
-        $physicalAnalysis->setMuscleMass($muscle_mass);
-        $physicalAnalysis->setVisceralFat($visceral_fat);
-        $register = $physicalAnalysis->register();
-        if ($register) {
-            header("location: " . SERVER_PAGS . "physical/view?analysis=" . $register);
-
-        }
-    }
 
 
 } else {
@@ -122,7 +107,7 @@ if ($user !== null && $user !== "") {
         <div class="col-sm-12 col-lg-12 col-xl-4">
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="text" id="body_mass" value="0" name="body_mass"
+                    <input autocomplete="off" type="text" id="body_mass"  value="<?php echo $physicalAnalysis->getBodyMass()?>" name="body_mass"
                            placeholder="Índice de Massa Corpórea" class="number">
                     <label for="body_mass"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
@@ -179,7 +164,7 @@ if ($user !== null && $user !== "") {
 
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="text" id="body_fat" value="0" name="body_fat"
+                    <input autocomplete="off" type="text" id="body_fat"  value="<?php echo $physicalAnalysis->getBodyFat()?>" name="body_fat"
                            placeholder="Gordura Corporal" class="number">
                     <label for="body_fat"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
@@ -257,8 +242,8 @@ if ($user !== null && $user !== "") {
         <div class="col-sm-12 col-lg-12 col-xl-4">
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="text" id="muscle_mass" value="0" name="muscle_mass"
-                           placeholder="Massa Muscular" class="number">
+                    <input autocomplete="off" type="text" id="muscle_mass" name="muscle_mass"
+                           placeholder="Massa Muscular" class="number" value="<?php echo $physicalAnalysis->getMuscleMass()?>">
                     <label for="muscle_mass"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
             </div>
@@ -335,7 +320,7 @@ if ($user !== null && $user !== "") {
         <div class="col-sm-12 col-lg-12 col-xl-4">
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="text" id="visceral_fat" value="0" name="visceral_fat"
+                    <input autocomplete="off" type="text" id="visceral_fat"  value="<?php echo $physicalAnalysis->getVisceralFat()?>" name="visceral_fat"
                            placeholder="Gordura Visceral" class="number">
                     <label for="visceral_fat"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>

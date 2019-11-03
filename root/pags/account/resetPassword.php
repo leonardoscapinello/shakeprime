@@ -2,24 +2,40 @@
 
 require_once(__DIR__ . "/../../settings/orchestrator.php");
 require_once(__DIR__ . "/../settings/pags.php");
-$error = "";
-if (!$account->isLogged()) {
-    if (get_request("action") === "authenticate") {
-        $account->setAuthUsername(get_request("username"));
-        $account->setAuthPassword(get_request("password"));
-        if ($account->login()) {
-            header("location: " . WELCOME_PAGS);
-            die();
-        } else {
-            $error = "password-no-match";
-        }
-    }
-} else {
+$token = get_request("token");
+$smallToken = get_request("small_token");
+$password = get_request("password");
+
+if ($token === null) {
     header("location: " . WELCOME_PAGS);
     die();
-}
+} else {
 
-$less->compileFile("../static/less/pags.less", "../static/stylesheet/pags.min.css");
+    $accountToken->load($token);
+
+    if ($accountToken->getSmallToken() !== str_replace("-", "", $smallToken)) {
+
+        header("location: " . REGISTER_PAGS . "/" . $token . "?sm=error");
+        die();
+
+    } else {
+
+        if ($password !== null) {
+            $id_account = $accountToken->getIdAccount();
+
+            error_log("Setting reset password");
+            error_log("id_account > " . $id_account);
+            error_log("password > " . $password);
+
+            $account->setAsPrime($id_account, "Y");
+            $account->changePassword($password, $id_account);
+
+            header("location: " . LOGOUT_PAGE);
+            die();
+        }
+
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -45,37 +61,40 @@ $less->compileFile("../static/less/pags.less", "../static/stylesheet/pags.min.cs
           type="text/css"/>
     <link href="<?= PAGS_STYLESHEET ?>fontawesome5.css?v=<?php echo date("ymdhis"); ?>" rel="stylesheet"
           type="text/css"/>
+
+    <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery-3.2.0.min.js"></script>
+    <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery.mask.js"></script>
+    <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>/sweetalert2.min.js"></script>
 </head>
 <body class="dark">
 <div id="wrapper">
-    <form name="login" action="" method="POST">
-        <input type="hidden" name="action" value="authenticate">
+    <form name="login" action="./reset" method="POST">
+        <input type="hidden" name="token" value="<?= $token ?>">
+        <input type="hidden" name="small_token" value="<?= $smallToken ?>">
         <div class="account_box">
             <div class="company_login">
                 <img src="<?= PAGS_IMAGES ?>pags-logo-extensive.png">
             </div>
-            <p>Seja bem-vindo(a) ao portal <b>ShakePrime</b> exclusivo para Gestão de Negócios. Entre com seus dados
-                para
-                continuar.</p>
-            <?php if ($error !== "") { ?>
-                <div class="login-error">
-                    Usuário ou senha incorretos.
-                </div>
-            <?php } ?>
-            <div class="form_input">
-                <input type="text" placeholder="Email" id="username" name="username">
-                <label for="username">
-                    <span class="floating_icon"><i class="far fa-envelope"></i></span>
-                </label>
+
+            <div style="width:100%;height:5px;background:rgba(255,255,255,.05);position: relative;border-radius:5px;overflow: hidden;margin-top:10px;">
+                <div style="width:66%;background:#00BFED;position: absolute;top:0;left:0;height:5px;"></div>
             </div>
+
+
+            <h1 style="font-size:2.3em;color: #FFFFFF;margin-top:20px;">Agora, é hora da segurança!</h1>
+
+            <p>Essa é a última etapa de verificação de sua conta. Digite uma senha abaixo para finalizar seu cadastro
+                como <b>Prime</b>.</p>
+
             <div class="form_input">
-                <input type="password" placeholder="Senha" name="password" id="password">
+                <input type="password" placeholder="Crie sua senha" id="password" class="password"
+                       name="password">
                 <label for="password">
                     <span class="floating_icon"><i class="far fa-key"></i></span>
                 </label>
             </div>
             <div class="form_input">
-                <button>Fazer Login</button>
+                <button>Definir Senha</button>
             </div>
         </div>
     </form>
@@ -85,5 +104,9 @@ $less->compileFile("../static/less/pags.less", "../static/stylesheet/pags.min.cs
     </div>
 </div>
 </body>
-<script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery-2.1.0.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.small_token').mask('000-000', {clearIfNotMatch: true});
+    });
+</script>
 </html>

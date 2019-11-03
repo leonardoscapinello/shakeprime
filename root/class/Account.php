@@ -19,7 +19,7 @@ class Account
 
     private $is_admin = "N";
     private $is_prime = "N";
-    private $force_reset = "N";
+    private $force_reset = "Y";
 
     private $auth_username;
     private $auth_password;
@@ -100,7 +100,7 @@ class Account
      */
     public function getProfilePicture()
     {
-        return $this->profile_picture;
+        return PAGS_IMAGES . "profile/" . ($this->profile_picture !== null ? $this->profile_picture : "012391023912930129302031.png");
     }
 
     /**
@@ -391,27 +391,56 @@ class Account
     {
         global $security;
         global $database;
+        global $pagsMailer;
         if ($this->getAuthUsername() !== null && $this->getAuthUsername() !== "") {
             if ($this->getAuthPassword() !== null && $this->getAuthPassword() !== "") {
 
 
-                $database->query("SELECT id_account FROM accounts WHERE email = ? OR username = ?");
+                $database->query("SELECT id_account, email, name FROM accounts WHERE email = ? OR username = ?");
                 $database->bind(1, $this->getAuthUsername());
                 $database->bind(2, $this->getAuthUsername());
                 $resultset = $database->resultset();
 
                 if (count($resultset) > 0) {
 
+
                     $id_account = $resultset[0]["id_account"];
+                    $email_address = $resultset[0]["email"];
+                    $name = $resultset[0]["name"];
+
+
+                    $this->setIdAccount($id_account);
+                    $forceReset = $this->isForceReset();
+                    error_log($forceReset);
+                    if ($forceReset) {
+
+                        $database->query("SELECT token, small_token FROM accounts_token WHERE id_account = ? AND is_active = 'Y'");
+                        $database->bind(1, $id_account);
+                        $rs = $database->resultset();
+                        if (count($rs) > 0) {
+                            $args = array(
+                                "name" => $name,
+                                "username" => $email_address,
+                                "small_token" => substr($rs[0]['small_token'], 0, 3) . "-" . substr($rs[0]['small_token'], 3, 3)
+                            );
+
+                            $pagsMailer->send($email_address, "Chegou a hora de inovar! Bem-vindo ao ShakePrime 🤝", "new-prime-reset", $args);
+                            header("location: " . REGISTER_PAGS . "/" . $forceReset);
+                            die();
+                        }
+                    }
+
 
                     $security->setIdAccount($id_account);
                     $security->setString($this->getAuthPassword());
+                    $security->isHash(true);
                     $password = $security->encrypt();
 
                     $database->query("SELECT id_account FROM accounts WHERE id_account = ? AND password = ? AND (password != '' AND password IS NOT NULL)");
                     $database->bind(1, $id_account);
                     $database->bind(2, $password);
-                    if (count($resultset) > 0) {
+                    $resultAccount = $database->resultset();
+                    if (count($resultAccount) > 0) {
                         $this->createSession($id_account);
                         return true;
                     }
@@ -596,7 +625,7 @@ class Account
                 $security->setIdAccount($id);
                 $security->isHash(true);
                 $new_password = $security->encrypt();
-                $database->query("UPDATE accounts SET password = ? WHERE id_account = ?");
+                $database->query("UPDATE accounts SET password = ?, force_reset = 'N' WHERE id_account = ?");
                 $database->bind(1, $new_password);
                 $database->bind(2, $id);
                 $database->execute();
@@ -631,6 +660,26 @@ class Account
         }
     }
 
+    public function getCustomersWithFilter($filter)
+    {
+        $error = "";
+        global $database;
+        global $logger;
+        try {
+            $register_by = $this->isLogged();
+            $database->query("SELECT id_account, name, username, birthday FROM accounts WHERE register_by = :register_by AND (LOWER(name) LIKE :term OR LOWER(email) LIKE :term OR LOWER(username) LIKE :term OR LOWER(phone) LIKE :term) ORDER BY name ASC");
+            $database->bind(":register_by", $register_by);
+            $database->bind(":term", "%" . strtolower($filter) . "%");
+            return $database->resultset();
+        } catch (Exception $exception) {
+            $error = $exception;
+        } finally {
+            if ($error !== "") {
+                $logger->error($error);
+            }
+        }
+    }
+
     public function getProfilePictureById($id_account)
     {
         $error = "";
@@ -651,6 +700,159 @@ class Account
                 $logger->error($error);
             }
         }
+    }
+
+
+    public function getMostLikedProducts($id_customer)
+    {
+        global $database;
+        try {
+            $database->query("SELECT pr.product_name, COUNT(pr.id_product) AS purchase_time FROM sales sa LEFT JOIN sales_products sp ON sp.id_sale = sa.id_shopping_cart LEFT JOIN products pr ON pr.id_product = sp.id_product WHERE sa.id_customer = ? GROUP BY pr.product_name");
+            $database->bind(1, $id_customer);
+            $rs = $database->resultset();
+            if (count($rs) > 0) {
+                return $rs;
+            }
+        } catch (Exception $exception) {
+            echo $exception;
+        }
+    }
+
+
+    public function getAnalysis($id_customer)
+    {
+        global $database;
+        try {
+            $database->query("SELECT * FROM physical_analysis WHERE id_account = ? ORDER BY insert_time DESC");
+            $database->bind(1, $id_customer);
+            $rs = $database->resultset();
+            if (count($rs) > 0) {
+                return $rs;
+            }
+        } catch (Exception $exception) {
+            echo $exception;
+        }
+    }
+
+    public function setAsPrime($id_customer, $is_prime = "Y")
+    {
+        global $database;
+        try {
+            $database->query("UPDATE accounts SET is_prime = ?, force_reset = 'N' WHERE id_account = ?");
+            $database->bind(1, $is_prime);
+            $database->bind(2, $id_customer);
+            $database->execute();
+
+            $database->query("UPDATE accounts_token SET is_active = 'N' WHERE id_account = ?");
+            $database->bind(1, $id_customer);
+            $database->execute();
+            return true;
+        } catch (Exception $exception) {
+            error_log($exception);
+        }
+    }
+
+    public function requestPrime($id_customer)
+    {
+        global $database;
+        global $pagsMailer;
+        try {
+            $database->query("UPDATE accounts SET is_prime = 'Y', force_reset = 'Y' WHERE id_account = ?");
+            $database->bind(1, $id_customer);
+            $database->execute();
+
+            $database->query("SELECT name, email FROM accounts WHERE id_account = ?");
+            $database->bind(1, $id_customer);
+            $rs = $database->resultset();
+            if (count($rs) > 0) {
+                $args = array(
+                    "name" => $rs[0]['name'],
+                    "email" => $rs[0]['email'],
+                );
+
+                $pagsMailer->send($rs[0]['email'], "Seja muito bem-vindo(a)!", "welcome-to-prime", $args);
+            }
+            return true;
+        } catch (Exception $exception) {
+            error_log($exception);
+        }
+    }
+
+    public function removePrime($id_customer)
+    {
+        global $database;
+        global $pagsMailer;
+        try {
+            $database->query("UPDATE accounts SET is_prime = 'N', force_reset = 'N' WHERE id_account = ?");
+            $database->bind(1, $id_customer);
+            $database->execute();
+
+            $database->query("SELECT name, email FROM accounts WHERE id_account = ?");
+            $database->bind(1, $id_customer);
+            $rs = $database->resultset();
+            if (count($rs) > 0) {
+                $args = array(
+                    "name" => $rs[0]['name'],
+                    "email" => $rs[0]['email'],
+                );
+
+                $pagsMailer->send($rs[0]['email'], "Você foi incrível todo esse tempo!", "remove-prime", $args);
+            }
+            return true;
+        } catch (Exception $exception) {
+            error_log($exception);
+        }
+    }
+
+    public function isForceReset()
+    {
+        global $database;
+        try {
+            $token = $this->generateRandom(256, false);
+            $small_token = $this->generateRandom(6, true);
+
+            $id_account = $this->isLogged();
+            if ($id_account === null || strlen($id_account) < 1) {
+                $id_account = $this->getIdAccount();
+            }
+
+
+            $database->query("SELECT force_reset FROM accounts WHERE force_reset = 'Y' AND id_account = ?");
+            $database->bind(1, $id_account);
+            error_log("force reset for id " . $id_account);
+            $rsAcc = $database->resultset();
+            if (count($rsAcc) > 0) {
+
+                $database->query("SELECT token, small_token FROM accounts_token WHERE id_account = ? AND is_active = 'Y'");
+                $database->bind(1, $id_account);
+                $rs = $database->resultset();
+                if (count($rs) < 1) {
+                    $database->query("INSERT INTO accounts_token (id_account, token, small_token) VALUES (?,?,?)");
+                    $database->bind(1, $id_account);
+                    $database->bind(2, $token);
+                    $database->bind(3, $small_token);
+                    $database->execute();
+                    return $token;
+                } else {
+                    return $rs[0]['token'];
+                }
+            }
+        } catch (Exception $exception) {
+            echo $exception;
+        }
+        return false;
+    }
+
+    private function generateRandom($length = 10, $onlyNumbers = false)
+    {
+        $characters = "0123456789";
+        if (!$onlyNumbers) $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 
 }

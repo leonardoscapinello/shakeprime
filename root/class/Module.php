@@ -79,6 +79,8 @@ class Module
         global $sales;
         global $salesProducts;
         global $stock;
+        global $physicalAnalysis;
+        global $pagsMailer;
         try {
             if ($this->getModuleExists()) {
                 $file = $this->template_path . $this->getModulePage();

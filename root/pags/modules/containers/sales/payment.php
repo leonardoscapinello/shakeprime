@@ -27,13 +27,6 @@ if ($user !== null) {
 if ($cart !== null) {
     $selectUser = false;
     $sales->load($cart);
-
-    if ($sales->getIsClosed() === "Y") {
-        header("location: " . $this->getModuleURLByKey("P00014") . "?cart=" . $cart);
-        die;
-    }
-
-
     $user = $sales->getIdCustomer();
     if ($updateLevel !== null) {
         $sales->updateDiscountLevel($cart, $updateLevel);
@@ -104,38 +97,6 @@ $productList = $products->getList();
     <div class="col-sm-12 col-lg-12 col-xl-4">
         <div class="widget">
 
-            <h5>Usuário</h5>
-
-            <div class="form_input">
-                <input autocomplete="off" disabled type="text" id="name"
-                       value="<?= $name; ?>"
-                       name="name"
-                       placeholder="Nome do Cliente">
-                <label for="name">
-                    <span class="floating_icon"><i class="far fa-user"></i></span>
-                </label>
-            </div>
-            <div class="form_input">
-                <input autocomplete="off" disabled type="text" id="email"
-                       value="<?= $email; ?>"
-                       name="email"
-                       placeholder="Endereço de E-mail">
-                <label for="email">
-                    <span class="floating_icon"><i class="far fa-envelope"></i></span>
-                </label>
-            </div>
-            <div class="form_input">
-                <input autocomplete="off" disabled type="text" id="email"
-                       value="<?= $birthday; ?>"
-                       name="email"
-                       placeholder="Data de Nascimento" class="date">
-                <label for="email">
-                    <span class="floating_icon"><i class="far fa-calendar"></i></span>
-                </label>
-            </div>
-
-            <div class="separator"></div>
-
 
             <div class="price_section">
                 <div class="price_block">
@@ -178,8 +139,33 @@ $productList = $products->getList();
                     <div class="caption">VALOR TOTAL DO PEDIDO</div>
                     <div class="price">R$ <?= $number->singleMoney($sold_price_total) ?></div>
                 </div>
-                <div class="form_input">
-                    <button onClick="continuePayment('<?= $cart ?>')">Continuar para forma de pagamento</button>
+
+
+                <div class="separator"></div>
+
+                <div class="price_block">
+                    <div class="caption">QUANDO ACONTECERÁ A ENTREGA DO PRODUTO?</div>
+                    <select class="small_select" id="delivery_date" name="delivery_date">
+                        <option value="TODAY">Hoje</option>
+                        <option value="NOT_TODAY">Em outro momento</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form_input">
+                <div class="row">
+                    <div class="col col-4">
+                        <button onClick="finishPayment('<?= $cart ?>','M')"><i class="far fa-dollar-sign"></i> Dinheiro
+                        </button>
+                    </div>
+                    <div class="col col-4">
+                        <button onClick="finishPayment('<?= $cart ?>','C')"><i class="far fa-credit-card"></i> Crédito
+                        </button>
+                    </div>
+                    <div class="col col-4">
+                        <button onClick="finishPayment('<?= $cart ?>','D')"><i class="far fa-credit-card"></i> Débito
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -265,8 +251,9 @@ $productList = $products->getList();
     </div>
     <script type="text/javascript">
 
-        function continuePayment(cart) {
-            window.location.href = "<?=$this->getModuleURLByKey('P00011'); ?>?cart=" + cart;
+        function finishPayment(cart, method) {
+            var delivery = document.getElementById("delivery_date").value;
+            window.location.href = "<?=$this->getModuleURLByKey('P00013'); ?>?delivery=" + delivery + "&cart=" + cart + "&method=" + method;
         }
 
         const Toast = Swal.mixin({
