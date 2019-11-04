@@ -94,7 +94,7 @@ class SalesDashboard
         global $account;
         global $database;
         $id_account = $account->isLogged();
-        $database->query("SELECT * FROM ( SELECT 'done' AS caption, COUNT(id_shopping_cart) AS value FROM sales WHERE id_account = ? AND MONTH(sale_done_date) = MONTH(NOW()) AND YEAR(sale_done_date) = YEAR(NOW()) AND is_closed = 'Y' UNION ALL SELECT 'total' AS caption, COUNT(id_shopping_cart) AS value FROM sales WHERE id_account = ? AND MONTH(sale_done_date) = MONTH(NOW()) AND YEAR(sale_done_date) = YEAR(NOW()) ) tb");
+        $database->query("SELECT * FROM ( SELECT 'done' AS caption, COUNT(id_shopping_cart) AS value FROM sales WHERE id_account = ? AND MONTH(sale_start_date) = MONTH(NOW()) AND YEAR(sale_start_date) = YEAR(NOW()) AND is_closed = 'Y' UNION ALL SELECT 'total' AS caption, COUNT(id_shopping_cart) AS value FROM sales WHERE id_account = ? AND MONTH(sale_start_date) = MONTH(NOW()) AND YEAR(sale_start_date) = YEAR(NOW()) ) tb");
         $database->bind(1, $id_account);
         $database->bind(2, $id_account);
         $rs = $database->resultset();

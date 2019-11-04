@@ -9,10 +9,10 @@ if ($cart !== null) {
     $sales->load($cart);
     $user = $sales->getIdCustomer();
 
-    //if ($sales->getIsClosed() === "Y") {
-    //    header("location: " . $this->getModuleURLByKey("P00014") . "?cart=" . $cart);
-    //    die;
-    //}
+    if ($sales->getIsClosed() === "Y") {
+        header("location: " . $this->getModuleURLByKey("P00014") . "?cart=" . $cart);
+        die;
+    }
 
     $progress = PAGS_IMAGES . "/shopping-progress-delivery-waiting.png";
     if ($delivery === "TODAY") $progress = PAGS_IMAGES . "shopping-progress-delivery-done.png";
@@ -63,7 +63,7 @@ if ($cart !== null) {
             break;
     }
 
-    /*
+
 
     $pagsMailer->send($email, "Você é Incrível! Sua compra foi aprovada.", "finish-cart", array(
         "consultor" => $account->getName(),
@@ -80,7 +80,7 @@ if ($cart !== null) {
     ));
 
     $sales->finish($cart, $delivery, $payment_method, $sale_price, $sold_price);
-*/
+
 
 }
 
