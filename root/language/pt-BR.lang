@@ -8,13 +8,14 @@
 @modules.customer.edit.title=Perfil de um Cliente
 @modules.customer.index.title=Lista de Clientes
 @modules.categories.physical=Avaliação Física
+@modules.categories.dashboard=Painel de Controle
 
 
 ### ### PRODUCTS
-@modules.products.index.title=Catálogo
+@modules.products.index.title=Catálogo de Produtos
 
 ### ### STOCK
-@modules.stock.new.title=Estoque
+@modules.stock.new.title=Estoque de Produtos
 @modules.stock.edit.title=Editar um item do estoque
 
 ### ### VENDA
@@ -23,6 +24,9 @@
 @modules.sale.finish.title=Conclusão da Compra
 @modules.sale.view.title=Visualizar uma Compra
 @modules.sale.index.title=Lista de Compras
+
+### ### DASHBOARDS
+@modules.dashboard.sales.title=Visão de Vendas
 
 ### ### AVALIAÇÃO FÍSICA
 @modules.physical.create.title=Nova Avaliação Física

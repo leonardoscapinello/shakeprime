@@ -7,6 +7,10 @@ if (get_request("product") !== null) {
 
     if (get_request("stock_quantity") !== null) {
         $quantity = get_request("stock_quantity");
+        if (intval($quantity) < 1) {
+            header("location: edit?product=" . $id_product . "&qt=low");
+            die;
+        }
         if ($stock->addProduct2Stock($id_product, $quantity)) {
             //error_log("adicionando isso");
             header("Refresh: 0");
@@ -110,7 +114,7 @@ if (get_request("product") !== null) {
     window.setTimeout(function () {
         Added.fire({
             onClose: () => {
-                window.history.pushState({}, document.title, "/" + '<?=BASE_PATH_PAGS . $this->getModuleURLByKey("P00007", true) . "?product=". $id_product ?>');
+                window.history.pushState({}, document.title, "/" + '<?=BASE_PATH_PAGS . $this->getModuleURLByKey("P00007", true) . "?product=" . $id_product ?>');
             }
         });
 

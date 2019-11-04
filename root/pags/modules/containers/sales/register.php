@@ -194,9 +194,11 @@ $productList = $products->getList();
                     <div class="caption">VALOR TOTAL DO PEDIDO</div>
                     <div class="price">R$ <?= $number->singleMoney($sold_price_total) ?></div>
                 </div>
-                <div class="form_input">
-                    <button onClick="continuePayment('<?= $cart ?>')">Continuar para forma de pagamento</button>
-                </div>
+                <?php if ($sold_price_total > 0) { ?>
+                    <div class="form_input">
+                        <button onClick="continuePayment('<?= $cart ?>')">Continuar para forma de pagamento</button>
+                    </div>
+                <?php } ?>
             </div>
 
         </div>

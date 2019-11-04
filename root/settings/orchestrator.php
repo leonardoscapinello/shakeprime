@@ -52,6 +52,7 @@ require_once(DIRNAME . "../class/Stock.php");
 require_once(DIRNAME . "../class/PhysicalAnalysis.php");
 require_once(DIRNAME . "../class/AccountToken.php");
 require_once(DIRNAME . "../class/Mailer.php");
+require_once(DIRNAME . "../class/SalesDashboard.php");
 
 require_once(DIRNAME . "../class/PHPMailer-6.0.3/src/Exception.php");
 require_once(DIRNAME . "../class/PHPMailer-6.0.3/src/PHPMailer.php");
@@ -85,6 +86,7 @@ $physicalAnalysis = new PhysicalAnalysis();
 $accountToken = new AccountsToken();
 $pagsMailer = new Mailer();
 
+$salesDashboard = new SalesDashboard();
 
 /* ============ CONSTANTS */
 

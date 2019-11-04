@@ -6,7 +6,8 @@ $filter = get_request("q");
     <div class="col col-4">
         <div class="form_input">
             <form action="">
-                <input type="text" name="q" id="q" placeholder="Digite o protocolo de uma venda ou nome do cliente" value="<?= $filter ?>">
+                <input type="text" name="q" id="q" placeholder="Digite o protocolo de uma venda ou nome do cliente"
+                       value="<?= $filter ?>">
                 <label for="q">
                     <span class="floating_icon"><i class="far fa-search"></i></span>
                 </label>
@@ -17,10 +18,11 @@ $filter = get_request("q");
 <table class="table">
     <thead>
     <tr>
-        <th>Protocolo</th>
         <th>Nome do Cliente</th>
+        <th>Protocolo</th>
         <th>Valor do Pedido</th>
-        <th>Desconto/Lucro</th>
+        <th>Lucro</th>
+        <th>Desconto</th>
         <th>Volume</th>
         <th>Data de Inicio</th>
         <th>Status</th>
@@ -38,19 +40,19 @@ $filter = get_request("q");
         $products_quantity = $list[$i]['products'];
         ?>
         <tr class="selectable" onClick="view('<?= $list[$i]['unique_code'] ?>');">
-            <td><?= $list[$i]['unique_code'] ?></td>
             <td><?= $list[$i]['name'] ?></td>
-            <td>R$ <?= $number->singleMoney($list[$i]['final_price']) ?></td>
-            <td>
-                R$ <?= $number->singleMoney(($list[$i]['sale_price'] - $list[$i]['final_price'])) ?>
-                / R$ <?= $number->singleMoney(($list[$i]['profit'])) ?>
+            <td><?= $list[$i]['unique_code'] ?></td>
+            <td>R$ <?= $number->singleMoney($list[$i]['final_price']) ?>
+                <span  class="stamp-small-grey">R$ <?= $number->singleMoney($list[$i]['sale_price']) ?></span>
             </td>
+            <td>R$ <?= $number->singleMoney(($list[$i]['sale_price'] - $list[$i]['final_price'])) ?></td>
+            <td>R$ <?= $number->singleMoney(($list[$i]['profit'])) ?></td>
             <td>PV <?= $number->singleMoney(($list[$i]['volume'])) ?></td>
             <td><?= date("d/m/Y H:i", strtotime($list[$i]['sale_start_date'])) ?></td>
             <td>
                 <?php if ($status === "1") { ?>
                     <?php if ($products_quantity > 0) { ?>
-                        <span class="stamp stamp-bold stamp-sm stamp-font-sm  stamp-label-brand">Em Andamento</span>
+                        <span class="stamp stamp-bold stamp-sm stamp-font-sm  stamp-label-brand">Ag. Fechamento</span>
                     <?php } else { ?>
                         <span class="stamp stamp-bold stamp-sm stamp-font-sm  stamp-label-danger">Carrinho Vazio</span>
                     <?php } ?>

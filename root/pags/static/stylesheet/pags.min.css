@@ -1182,3 +1182,24 @@ ul.analysis li a i {
   line-height: 1.5;
   border-radius: .2rem;
 }
+tr:hover .stamp-small-grey {
+  display: inline-block;
+}
+.stamp-small-grey {
+  display: none;
+  font-size: .91em;
+  background: rgba(255,255,255,0.1);
+  border-radius: 5px;
+  position: absolute;
+  padding: 3px 10px;
+  margin-left: 13px;
+}
+.stamp-small-grey:before {
+  content: "SEM DESCONTO";
+  position: absolute;
+  bottom: calc(90%);
+  left: -1px;
+  width: 120px;
+  font-weight: 600;
+  font-size: .85em;
+}

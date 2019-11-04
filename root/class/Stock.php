@@ -15,8 +15,11 @@ class Stock
 
         $added = false;
         try {
+
+            $type = "ADD";
+
             if ($quantity < 1) {
-                return false;
+                $type = "DEL";
             }
             $id_account = $account->isLogged();
             $database->query("SELECT * FROM stock st WHERE st.id_product = ? AND st.id_account = ?");
@@ -43,17 +46,17 @@ class Stock
 
             }
 
-            if($added){
-                $database->query("INSERT INTO stock_history (id_stock, id_account, id_product, quantity, type) VALUES ((SELECT id_stock FROM stock WHERE id_account = ? AND id_product = ?),?,?,?,'ADD')");
+            if ($added) {
+                $database->query("INSERT INTO stock_history (id_stock, id_account, id_product, quantity, type) VALUES ((SELECT id_stock FROM stock WHERE id_account = ? AND id_product = ?),?,?,?,?)");
                 $database->bind(1, $id_account);
                 $database->bind(2, $id_product);
                 $database->bind(3, $id_account);
                 $database->bind(4, $id_product);
                 $database->bind(5, $quantity);
+                $database->bind(6, $type);
                 $database->execute();
                 return true;
             }
-
 
 
         } catch (Exception $exception) {

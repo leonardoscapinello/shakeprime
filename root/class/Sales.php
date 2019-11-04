@@ -153,9 +153,40 @@ class Sales
             $database->bind(4, $id_account);
             $database->bind(5, $unique_code);
             $database->execute();
+            $this->removeFromStock($unique_code);
         } catch (Exception $exception) {
             error_log($exception);
         }
+
+
+    }
+
+    private function removeFromStock($unique_code)
+    {
+        global $database;
+        global $account;
+        global $stock;
+        try {
+            $id_account = $account->getIdAccount();
+            $database->query("select id_product, quantity from sales_products where id_sale = (select id_shopping_cart from sales where unique_code = ?)");
+            $database->bind(1, $unique_code);
+            $rs = $database->resultset();
+            if (count($rs) > 0) {
+                for ($i = 0; $i < count($rs); $i++) {
+
+                    $id_product = $rs[$i]['id_product'];
+                    $quantity = $rs[$i]['quantity'];
+
+                    $quantity = (abs($quantity) * -1);
+
+                    $stock->addProduct2Stock($id_product, $quantity);
+                }
+            }
+        } catch (Exception $exception) {
+            error_log($exception);
+        }
+
+
     }
 
 
@@ -167,7 +198,7 @@ class Sales
         global $logger;
         try {
             $register_by = $account->isLogged();
-            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name, sa.sale_start_date, CASE WHEN sp.id_sale IS NULL THEN 0 ELSE sp.id_sale END AS products, volume, product_purchase_price, profit  FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_customer LEFT JOIN (SELECT id_sale, COUNT(id_sale) FROM sales_products GROUP BY id_sale) sp ON sp.id_sale = sa.id_shopping_cart WHERE sa.id_account = ? AND status = 1 ORDER BY sale_start_date DESC");
+            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name, sa.sale_start_date, CASE WHEN sp.id_sale IS NULL THEN 0 ELSE sp.id_sale END AS products, volume, product_purchase_price, profit  FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_customer LEFT JOIN (SELECT id_sale, COUNT(id_sale) FROM sales_products GROUP BY id_sale) sp ON sp.id_sale = sa.id_shopping_cart WHERE sa.id_account = ? AND ((status = 1 AND is_closed = 'N') OR status = 2) ORDER BY sale_start_date DESC");
             $database->bind(1, $register_by);
             return $database->resultset();
         } catch (Exception $exception) {

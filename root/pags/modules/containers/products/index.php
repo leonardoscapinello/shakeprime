@@ -41,6 +41,6 @@
 </table>
 <script type="text/javascript">
     function edit(id_account) {
-        window.location.href = "<?=$this->getModuleURLByKey('P00005'); ?>?product=" + id_account;
+        window.location.href = "<?=$this->getModuleURLByKey('P00007'); ?>?product=" + id_account;
     }
 </script>
