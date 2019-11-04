@@ -9,10 +9,10 @@ if ($cart !== null) {
     $sales->load($cart);
     $user = $sales->getIdCustomer();
 
-    if ($sales->getIsClosed() === "Y") {
-        header("location: " . $this->getModuleURLByKey("P00014") . "?cart=" . $cart);
-        die;
-    }
+    //if ($sales->getIsClosed() === "Y") {
+    //    header("location: " . $this->getModuleURLByKey("P00014") . "?cart=" . $cart);
+    //    die;
+    //}
 
     $progress = PAGS_IMAGES . "/shopping-progress-delivery-waiting.png";
     if ($delivery === "TODAY") $progress = PAGS_IMAGES . "shopping-progress-delivery-done.png";
@@ -63,6 +63,8 @@ if ($cart !== null) {
             break;
     }
 
+    /*
+
     $pagsMailer->send($email, "Você é Incrível! Sua compra foi aprovada.", "finish-cart", array(
         "consultor" => $account->getName(),
         "cphone" => $account->getPhone(),
@@ -78,6 +80,7 @@ if ($cart !== null) {
     ));
 
     $sales->finish($cart, $delivery, $payment_method, $sale_price, $sold_price);
+*/
 
 }
 
@@ -126,8 +129,7 @@ if ($cart !== null) {
 
             <h3 align="center" style="font-size:3.3em;margin-top: 20px;color: #5BAD3E;">Você é Incrivel!</h3>
             <p align="center" style="font-size:1.4em;margin:20px auto;max-width:400px;">A compra foi finalizada e os
-                detalhes encaminhados ao e-mail do cliente.<br/>
-                redirecionamos você a visualização da compra.</p>
+                detalhes encaminhados ao e-mail do cliente. Estamos te redirecionando de volta a visualização da compra.</p>
 
         </div>
 
@@ -138,5 +140,5 @@ if ($cart !== null) {
 <script type="text/javascript">
     window.setTimeout(function () {
         window.location.href = '<?= $this->getModuleURLByKey("P00005") . "?cart=" . $cart?>';
-    }, 5000);
+    }, 5111000);
 </script>

@@ -98,7 +98,7 @@ body.dark {
 .sidebar ul.navigation li {
   list-style: none;
   display: block;
-  margin: 10px 0;
+  margin: 3px 0;
 }
 .sidebar ul.navigation li span {
   display: block;
@@ -284,6 +284,19 @@ body.dark {
 }
 .masterbar .company_menu + .action_menu .project:first-child .heading {
   margin-top: 30px;
+}
+@media (max-width: 1400px) {
+  .masterbar {
+    display: none !important;
+  }
+  .sidebar:not(.cover) {
+    width: 0;
+    transition: width 0.4s ease-in;
+  }
+  .sidebar:not(.cover).open {
+    width: 210px;
+    transition: width 0.4s ease-out;
+  }
 }
 .toolbar {
   width: 100%;
@@ -1011,9 +1024,15 @@ ul.analysis li a i {
 }
 .thumbsup-icon {
   position: relative;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
   height: 300px;
   transform: translate(120px,0);
+}
+@media (max-width: 1400px) {
+  .thumbsup-icon {
+    zoom: .7;
+  }
 }
 .thumbsup-icon svg {
   position: absolute;

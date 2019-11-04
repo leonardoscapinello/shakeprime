@@ -28,6 +28,7 @@ if ($analysis !== null && $analysis !== "") {
 
 
 <div class="row">
+    <!--
     <div class="col-sm-12 col-lg-12 col-xl-3">
         <div class="widget" align="center">
             <div class="profile-picture-ph">
@@ -35,7 +36,8 @@ if ($analysis !== null && $analysis !== "") {
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-lg-12 col-xl-9">
+    -->
+    <div class="col-sm-12 col-lg-12 col-xl-12">
         <div class="widget">
             <div class="row">
                 <div class="col-sm-12 col-lg-12 col-xl-12">
@@ -107,7 +109,8 @@ if ($analysis !== null && $analysis !== "") {
         <div class="col-sm-12 col-lg-12 col-xl-4">
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="text" id="body_mass"  value="<?php echo $physicalAnalysis->getBodyMass()?>" name="body_mass"
+                    <input autocomplete="off" type="text" id="body_mass"
+                           value="<?php echo $physicalAnalysis->getBodyMass() ?>" name="body_mass"
                            placeholder="Índice de Massa Corpórea" class="number">
                     <label for="body_mass"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
@@ -164,7 +167,8 @@ if ($analysis !== null && $analysis !== "") {
 
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="text" id="body_fat"  value="<?php echo $physicalAnalysis->getBodyFat()?>" name="body_fat"
+                    <input autocomplete="off" type="text" id="body_fat"
+                           value="<?php echo $physicalAnalysis->getBodyFat() ?>" name="body_fat"
                            placeholder="Gordura Corporal" class="number">
                     <label for="body_fat"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
@@ -243,7 +247,8 @@ if ($analysis !== null && $analysis !== "") {
             <div class="widget">
                 <div class="form_input">
                     <input autocomplete="off" type="text" id="muscle_mass" name="muscle_mass"
-                           placeholder="Massa Muscular" class="number" value="<?php echo $physicalAnalysis->getMuscleMass()?>">
+                           placeholder="Massa Muscular" class="number"
+                           value="<?php echo $physicalAnalysis->getMuscleMass() ?>">
                     <label for="muscle_mass"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>
             </div>
@@ -320,7 +325,8 @@ if ($analysis !== null && $analysis !== "") {
         <div class="col-sm-12 col-lg-12 col-xl-4">
             <div class="widget">
                 <div class="form_input">
-                    <input autocomplete="off" type="text" id="visceral_fat"  value="<?php echo $physicalAnalysis->getVisceralFat()?>" name="visceral_fat"
+                    <input autocomplete="off" type="text" id="visceral_fat"
+                           value="<?php echo $physicalAnalysis->getVisceralFat() ?>" name="visceral_fat"
                            placeholder="Gordura Visceral" class="number">
                     <label for="visceral_fat"> <span class="floating_icon"><i class="far fa-weight"></i></span> </label>
                 </div>

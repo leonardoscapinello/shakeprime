@@ -144,9 +144,9 @@ $productList = $products->getList();
                 <div class="separator"></div>
 
                 <div class="price_block">
-                    <div class="caption">QUANDO ACONTECERÁ A ENTREGA DO PRODUTO?</div>
+                    <div class="caption">ENTREGA DO PRODUTO</div>
                     <select class="small_select" id="delivery_date" name="delivery_date">
-                        <option value="TODAY">Hoje</option>
+                        <option value="TODAY">Pronta entrega</option>
                         <option value="NOT_TODAY">Em outro momento</option>
                     </select>
                 </div>
@@ -154,15 +154,15 @@ $productList = $products->getList();
 
             <div class="form_input">
                 <div class="row">
-                    <div class="col col-4">
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
                         <button onClick="finishPayment('<?= $cart ?>','M')"><i class="far fa-dollar-sign"></i> Dinheiro
                         </button>
                     </div>
-                    <div class="col col-4">
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
                         <button onClick="finishPayment('<?= $cart ?>','C')"><i class="far fa-credit-card"></i> Crédito
                         </button>
                     </div>
-                    <div class="col col-4">
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
                         <button onClick="finishPayment('<?= $cart ?>','D')"><i class="far fa-credit-card"></i> Débito
                         </button>
                     </div>

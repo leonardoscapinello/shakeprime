@@ -61,17 +61,18 @@ if ($user !== null && $user !== "") {
     <div class="col-sm-12 col-lg-12 col-xl-3">
         <div class="widget">
 
+            <!--
             <div class="profile-picture-ph" align="center">
                 <img src="<?= $picture_image ?>" style="max-width: 100%;border-radius:4px;max-height: 202px;">
             </div>
-
+-->
             <div class="form_input">
                 <button onClick="newSale(<?= $user ?>);return false;">Novo Pedido</button>
                 <button onClick="newExam(<?= $user ?>);return false;">Nova Avaliação</button>
                 <?php if ($account->getIsAdmin() === "Y") { ?>
                     <?php if ($customer->getIsPrime() === "Y") { ?>
                         <?php if ($customer->getForceReset() === "Y") { ?>
-                            <button onClick="newPrime(<?= $user ?>);return false;">Enviar convite novamente</button>
+                            <button onClick="newPrime(<?= $user ?>);return false;">Reenviar convite</button>
                         <?php } else { ?>
                             <button onClick="removePrime(<?= $user ?>);return false;">Remover privilégio Prime</button>
                         <?php } ?>

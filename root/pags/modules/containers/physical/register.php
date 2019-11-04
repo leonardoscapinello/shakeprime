@@ -43,6 +43,7 @@ if ($user !== null && $user !== "") {
 
 
 <div class="row">
+    <!--
     <div class="col-sm-12 col-lg-12 col-xl-3">
         <div class="widget" align="center">
             <div class="profile-picture-ph">
@@ -50,7 +51,8 @@ if ($user !== null && $user !== "") {
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-lg-12 col-xl-9">
+    -->
+    <div class="col-sm-12 col-lg-12 col-xl-12">
         <div class="widget">
             <div class="row">
                 <div class="col-sm-12 col-lg-12 col-xl-12">
