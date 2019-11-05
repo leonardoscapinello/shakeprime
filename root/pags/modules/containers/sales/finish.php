@@ -140,5 +140,5 @@ if ($cart !== null) {
 <script type="text/javascript">
     window.setTimeout(function () {
         window.location.href = '<?= $this->getModuleURLByKey("P00005") . "?cart=" . $cart?>';
-    }, 5111000);
+    }, 3000);
 </script>

@@ -47,7 +47,13 @@ require_once("root/settings/orchestrator.php");
                     </div>
                     <div class="col col-2">
                         <ul class="nav right">
-                            <li><a href="#"><i class="far fa-user-circle"></i> Samuel Camargo</a></li>
+                            <?php if ($account->isLogged()) { ?>
+                                <li><a href="./pags/d/"><i
+                                                class="far fa-user-circle"></i> <?= $account->getName() ?></a></li>
+                            <?php } else { ?>
+                                <li><a href="./pags/login"><i class="far fa-door-closed"></i> Minha Conta
+                                    </a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -177,25 +183,25 @@ require_once("root/settings/orchestrator.php");
                 <div class="col col-3">
                     <h4 class="blackcoffee">ShakePrime</h4>
                     <ul class="navigation">
-                        <li><a href="#">Nossa História</a></li>
-                        <li><a href="#">Missão</a></li>
-                        <li><a href="#">Projeto Social</a></li>
+                        <li><a href="./historia">Nossa História</a></li>
+                        <li><a href="./historia/missao">Missão</a></li>
+                        <li><a href="./projeto-social">Projeto Social</a></li>
                     </ul>
                 </div>
                 <div class="col col-3">
                     <h4 class="blackcoffee">Expansão</h4>
                     <ul class="navigation">
-                        <li><a href="#">Como funciona?</a></li>
-                        <li><a href="#">Cadastro</a></li>
-                        <li><a href="#">Intranet</a></li>
+                        <li><a href="./expansao/como-funciona">Como funciona?</a></li>
+                        <li><a href="./expansao/cadastro">Cadastro</a></li>
+                        <li><a href="./pags/login">Intranet</a></li>
                     </ul>
                 </div>
                 <div class="col col-3">
                     <h4 class="blackcoffee">Fale com a gente</h4>
                     <ul class="navigation">
-                        <li><a href="#">Suporte</a></li>
-                        <li><a href="#">Institucional</a></li>
-                        <li><a href="#">Imprensa</a></li>
+                        <li><a href="./contato">Suporte</a></li>
+                        <li><a href="./institucional">Institucional</a></li>
+                        <li><a href="./imprensa">Imprensa</a></li>
                     </ul>
                 </div>
             </div>

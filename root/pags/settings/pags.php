@@ -4,6 +4,7 @@ define("SERVER_PAGS", DASHBOARD);
 define("BASE_PATH_PAGS", "shakeprime/pags/d/");
 define("WELCOME_PAGS", DASHBOARD . "dashboard/overview");
 define("LOGIN_PAGS", SERVER . "pags/login");
+define("LOGOUT_PAGS", SERVER . "pags/logout");
 define("REGISTER_PAGS", SERVER . "pags/register");
 define("PAGS_STYLESHEET", SERVER . "pags.static/stylesheet/");
 define("PAGS_JAVASCRIPT", SERVER . "pags.static/javascript/");

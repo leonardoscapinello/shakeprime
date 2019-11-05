@@ -407,7 +407,7 @@ class Account
             if ($this->getAuthPassword() !== null && $this->getAuthPassword() !== "") {
 
 
-                $database->query("SELECT id_account, email, name FROM accounts WHERE email = ? OR username = ?");
+                $database->query("SELECT id_account, email, name FROM accounts WHERE email = ? OR username = ? AND is_prime = 'Y' AND is_active = 'Y'");
                 $database->bind(1, $this->getAuthUsername());
                 $database->bind(2, $this->getAuthUsername());
                 $resultset = $database->resultset();

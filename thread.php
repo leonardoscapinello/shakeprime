@@ -3,10 +3,10 @@
 
 require_once("root/settings/orchestrator.php");
 
-$less->compileFile("account/less/landing.less", "account/css/shakeprime.min.css");
-$less->compileFile("account/less/container.less", "account/css/container.min.css");
-$less->compileFile("account/less/navigation.less", "account/css/navigation.min.css");
-$less->compileFile("account/less/slider.less", "account/css/slider.min.css");
+$less->compileFile("static/less/landing.less", "static/css/shakeprime.min.css");
+$less->compileFile("static/less/container.less", "static/css/container.min.css");
+$less->compileFile("static/less/navigation.less", "static/css/navigation.min.css");
+$less->compileFile("static/less/slider.less", "static/css/slider.min.css");
 
 
 ?>

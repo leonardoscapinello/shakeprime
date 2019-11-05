@@ -9,6 +9,8 @@
 @modules.customer.index.title=Lista de Clientes
 @modules.categories.physical=Avaliação Física
 @modules.categories.dashboard=Painel de Controle
+@modules.categories.stock=Gestão de Produtos
+
 
 
 ### ### PRODUCTS
@@ -23,7 +25,7 @@
 @modules.sale.payment.title=Forma de Pagamento
 @modules.sale.finish.title=Conclusão da Compra
 @modules.sale.view.title=Visualizar uma Compra
-@modules.sale.index.title=Lista de Compras
+@modules.sale.index.title=Lista de Pedidos
 
 ### ### DASHBOARDS
 @modules.dashboard.sales.title=Visão de Vendas

@@ -572,6 +572,11 @@ select {
       color: #fff;
     }
 
+    &.red:hover {
+      background: #ff5454;
+      color: #fff;
+    }
+
     &:active {
       color: #fff;
       background: #000
@@ -1493,4 +1498,24 @@ tr:hover {
   width: 120px;
   font-weight: 600;
   font-size: .85em;
+}
+
+.floatLegend {
+  position: absolute;
+  top: 100%;
+  opacity: .5;
+
+  & span {
+    font-size: .4em;
+    position: relative;
+    top: -5px;
+
+    & span {
+      font-size: 1em;
+      background: rgba(255, 255, 255, .1);
+      top: 0;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+  }
 }

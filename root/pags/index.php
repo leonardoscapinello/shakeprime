@@ -81,10 +81,9 @@ $less->compileFile("static/less/container.less", "static/stylesheet/container.mi
             <div class="item">
                 <div class="full-center">
                     <ul class="navigation">
-                        <li><a href="#" class="active" data-text="Dashboard"><i class="far fa-window"></i></a></li>
-                        <li><a href="#" data-text="ShakePrime"><i class="far fa-globe"></i></a></li>
-                        <li><a href="#" data-text="Suporte"><i class="far fa-comments"></i></a></li>
-                        <li><a href="#" data-text="Ajuda"><i class="far fa-question-circle"></i></a></li>
+                        <li><a href="<?=WELCOME_PAGS?>" class="active" data-text="Dashboard"><i class="far fa-window"></i></a></li>
+                        <li><a href="<?=SERVER?>" data-text="ShakePrime"><i class="far fa-globe"></i></a></li>
+                        <li><a href="<?=LOGOUT_PAGS?>" data-text="Desconectar"><i class="far fa-power-off"></i></a></li>
                     </ul>
                 </div>
             </div>

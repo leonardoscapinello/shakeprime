@@ -1,1 +1,1 @@
-Page not found! ;(
+<?php header("location: " . WELCOME_PAGS); ?>

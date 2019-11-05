@@ -52,7 +52,7 @@ class Sales
         global $database;
         try {
             $id_account = $account->isLogged();
-            $database->query("SELECT unique_code FROM sales WHERE id_account = ? AND id_customer = ? AND is_closed = 'N'");
+            $database->query("SELECT unique_code FROM sales WHERE id_account = ? AND id_customer = ? AND is_closed = 'N' AND status != 4");
             $database->bind(1, $id_account);
             $database->bind(2, $id_customer);
             $resultset = $database->resultset();
@@ -198,7 +198,7 @@ class Sales
         global $logger;
         try {
             $register_by = $account->isLogged();
-            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name, sa.sale_start_date, CASE WHEN sp.id_sale IS NULL THEN 0 ELSE sp.id_sale END AS products, volume, product_purchase_price, profit  FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_customer LEFT JOIN (SELECT id_sale, COUNT(id_sale) FROM sales_products GROUP BY id_sale) sp ON sp.id_sale = sa.id_shopping_cart WHERE sa.id_account = ? AND ((status = 1 AND is_closed = 'N') OR status = 2) ORDER BY sale_start_date DESC");
+            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name, sa.sale_start_date, CASE WHEN sp.id_sale IS NULL THEN 0 ELSE sp.id_sale END AS products, volume, product_purchase_price, profit  FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_customer LEFT JOIN (SELECT id_sale, COUNT(id_sale) FROM sales_products GROUP BY id_sale) sp ON sp.id_sale = sa.id_shopping_cart WHERE sa.id_account = ? AND ((status = 1 AND is_closed = 'N') OR status = 2) AND sa.status != 4 ORDER BY sale_start_date DESC");
             $database->bind(1, $register_by);
             return $database->resultset();
         } catch (Exception $exception) {
@@ -218,7 +218,7 @@ class Sales
         global $logger;
         try {
             $register_by = $account->isLogged();
-            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name, sa.sale_start_date, CASE WHEN sp.id_sale IS NULL THEN 0 ELSE sp.id_sale END AS products, volume, product_purchase_price, profit  FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_customer LEFT JOIN (SELECT id_sale, COUNT(id_sale) FROM sales_products GROUP BY id_sale) sp ON sp.id_sale = sa.id_shopping_cart WHERE sa.id_account = :register_by AND (LOWER(sa.unique_code) LIKE :term OR LOWER(ac.name) LIKE :term)  ORDER BY sale_start_date DESC");
+            $database->query("SELECT sa.unique_code, sa.discount_level, sa.final_price, sa.sale_price, sa.payment_method, sa.is_closed, sa.status, ac.name, sa.sale_start_date, CASE WHEN sp.id_sale IS NULL THEN 0 ELSE sp.id_sale END AS products, volume, product_purchase_price, profit  FROM sales sa LEFT JOIN accounts ac ON ac.id_account = sa.id_customer LEFT JOIN (SELECT id_sale, COUNT(id_sale) FROM sales_products GROUP BY id_sale) sp ON sp.id_sale = sa.id_shopping_cart WHERE sa.id_account = :register_by AND (LOWER(sa.unique_code) LIKE :term OR LOWER(ac.name) LIKE :term) AND sa.status != 4 ORDER BY sale_start_date DESC");
             $database->bind(":register_by", $register_by);
             $database->bind(":term", "%" . strtolower($filter) . "%");
             return $database->resultset();
@@ -271,6 +271,38 @@ class Sales
                     $this->$key = $charset->utf8();
                 }
             }
+        } catch (Exception $exception) {
+            error_log($exception);
+        }
+    }
+
+    public function removeCart($unique_code)
+    {
+        global $database;
+        global $account;
+        try {
+            $id_account = $account->getIdAccount();
+            $database->query("UPDATE sales SET status = 4 WHERE id_account = ? AND unique_code = ?");
+            $database->bind(1, $id_account);
+            $database->bind(2, $unique_code);
+            $database->execute();
+            return true;
+        } catch (Exception $exception) {
+            error_log($exception);
+        }
+    }
+
+    public function deliveryCart($unique_code)
+    {
+        global $database;
+        global $account;
+        try {
+            $id_account = $account->getIdAccount();
+            $database->query("UPDATE sales SET status = 3, is_closed = 'Y' WHERE id_account = ? AND unique_code = ?");
+            $database->bind(1, $id_account);
+            $database->bind(2, $unique_code);
+            $database->execute();
+            return true;
         } catch (Exception $exception) {
             error_log($exception);
         }

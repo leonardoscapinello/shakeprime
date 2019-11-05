@@ -13,6 +13,6 @@ RewriteRule ^pags.static/(.*)$      root/pags/static/$1 [L]
 RewriteRule ^pags.edge/(.*)$        root/pags/modules/edge/$1 [L]
 RewriteRule ^pags.notifications/(.*)$        root/pags/static/notifications/$1 [L]
 
-RewriteRule ^/([^/]*)$ thread.php?page=$1 [L]
+RewriteRule ^([^/]*)$ thread.php?page=$1 [L]
 
 RewriteRule ^api/v1/$ assets/api/v1/ [L]

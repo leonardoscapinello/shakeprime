@@ -1,7 +1,8 @@
 <?php
 $user = get_request("user");
 $cart = get_request("cart");
-$updateLevel = get_request("updateLevel");
+$delivery = get_request("delivery");
+
 $progress = false;
 $name = $email = $birthday = "";
 
@@ -11,35 +12,24 @@ $volume_total = 0;
 
 $selectUser = false;
 
-if ($user !== null) {
-    $progress = $sales->hasSaleInProgress($user);
-    if (!$progress) {
-        $progress = $sales->startSale($user);
-    }
-    if ($progress) {
-        header("location: " . $this->getModuleURLByKey("P00005") . "?cart=" . $progress);
-        die();
-    }
-} else {
-    $selectUser = true;
-}
 
 if ($cart !== null) {
     $selectUser = false;
     $sales->load($cart);
+
+    if ($delivery !== null) {
+        $sales->deliveryCart($cart);
+        header("location: " . $this->getModuleURLByKey("P00014") . "?cart=" . $cart);
+        die;
+    }
 
     if ($sales->getIsClosed() === "N") {
         header("location: " . $this->getModuleURLByKey("P00005") . "?cart=" . $cart);
         die;
     }
 
-
     $user = $sales->getIdCustomer();
-    if ($updateLevel !== null) {
-        $sales->updateDiscountLevel($cart, $updateLevel);
-        header("location: " . $this->getModuleURLByKey("P00005") . "?cart=" . $cart);
-        die();
-    }
+
     $products_list = $salesProducts->getCartProducts($cart);
     $customer->load($user);
     $name = $customer->getName();
@@ -136,6 +126,13 @@ $productList = $products->getList();
                 </div>
             </div>
 
+
+            <?php if ($sales->getStatus() === "2") { ?>
+                <div class="form_input">
+                    <button onClick="deliveryProduct('<?= $cart ?>')">o produto foi entregue</button>
+                </div>
+            <?php } ?>
+
         </div>
     </div>
 
@@ -182,3 +179,9 @@ $productList = $products->getList();
         </div>
     </div>
     <div class="clearfix"></div>
+</div>
+<script type="text/javascript">
+    function deliveryProduct(cart) {
+        window.location.href = "<?=$this->getModuleURLByKey('P00014'); ?>?delivery=Y&cart=" + cart;
+    }
+</script>

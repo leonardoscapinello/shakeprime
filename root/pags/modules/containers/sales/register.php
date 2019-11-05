@@ -1,6 +1,8 @@
 <?php
 $user = get_request("user");
 $cart = get_request("cart");
+$remove = get_request("remove");
+
 $updateLevel = get_request("updateLevel");
 $progress = false;
 $name = $email = $birthday = "";
@@ -31,6 +33,12 @@ if ($cart !== null) {
 
     if ($sales->getIsClosed() === "Y") {
         header("location: " . $this->getModuleURLByKey("P00014") . "?cart=" . $cart);
+        die;
+    }
+
+    if ($remove !== null) {
+        $sales->removeCart($cart);
+        header("location: " . $this->getModuleURLByKey("P00015") . "?cart=" . $cart);
         die;
     }
 
@@ -119,6 +127,27 @@ $productList = $products->getList();
 <div class="row">
     <div class="col-sm-12 col-lg-12 col-xl-4">
         <div class="widget">
+
+
+            <div class="row">
+                <div class="col-sm-12 col-lg-12 col-xl-3">
+                    <div class="form_input">
+                        <button onClick="window.location.href = './index'">
+                            <i class="far fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="offset-6">
+
+                </div>
+                <div class="col-sm-12 col-lg-12 col-xl-3">
+                    <div class="form_input">
+                        <button onClick="removeCart('<?= $cart ?>')" class="red">
+                            <i class="far fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <h5>Usuário</h5>
 
@@ -285,6 +314,10 @@ $productList = $products->getList();
 
         function continuePayment(cart) {
             window.location.href = "<?=$this->getModuleURLByKey('P00011'); ?>?cart=" + cart;
+        }
+
+        function removeCart(cart) {
+            window.location.href = "<?=$this->getModuleURLByKey('P00005'); ?>?remove=Y&cart=" + cart;
         }
 
         const Toast = Swal.mixin({
