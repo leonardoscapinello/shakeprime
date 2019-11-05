@@ -1,10 +1,12 @@
 <?php
 require_once("root/settings/orchestrator.php");
 
-//$less->compileFile("static/less/landing.less", "static/css/shakeprime.min.css");
-//$less->compileFile("static/less/container.less", "static/css/container.min.css");
-//$less->compileFile("static/less/navigation.less", "static/css/navigation.min.css");
-//$less->compileFile("static/less/slider.less", "static/css/slider.min.css");
+$content = get_request("content");
+
+$less->compileFile("static/less/landing.less", "static/css/shakeprime.min.css");
+$less->compileFile("static/less/container.less", "static/css/container.min.css");
+$less->compileFile("static/less/navigation.less", "static/css/navigation.min.css");
+$less->compileFile("static/less/slider.less", "static/css/slider.min.css");
 
 
 ?>
@@ -35,178 +37,41 @@ require_once("root/settings/orchestrator.php");
 <body>
 <div id="wrapper">
 
-    <header>
-        <div id="header" class="header fixed">
-            <div class="container">
-                <div class="row">
-                    <div class="col col-2">
-                        <h1 class="company">ShakePrime</h1>
+
+    <?php require_once("root/composition/header.php"); ?>
+
+    <?php if ($content !== null) { ?>
+        <section>
+            <div class="ParallaxVideo inside-content">
+                <video autoplay muted loop>
+                    <source src="static/movie/shakeprime-project.mp4" type="video/mp4">
+                </video>
+                <div class="container" style="position: relative;">
+                    <div class="overlayer"></div>
+                    <div class="col col-6">
+                        <h2 class="color white ruge blackcoffee">Nossa História</h2>
                     </div>
-                    <div class="col col-8">
-                        <?php require_once("root/composition/navigation.php"); ?>
-                    </div>
-                    <div class="col col-2">
-                        <ul class="nav right">
-                            <?php if ($account->isLogged()) { ?>
-                                <li><a href="./pags/d/"><i
-                                                class="far fa-user-circle"></i> <?= $account->getName() ?></a></li>
-                            <?php } else { ?>
-                                <li><a href="./pags/login"><i class="far fa-door-closed"></i> Minha Conta
-                                    </a></li>
-                            <?php } ?>
-                        </ul>
-                    </div>
+                    <div class="col col-6">&nbsp;</div>
                 </div>
                 <div class="clearfix"></div>
             </div>
-        </div>
-    </header>
+        </section>
+        <section>
+            <div class="content">
+                <div class="container">
+                    aa
+                </div>
+            </div>
+        </section>
+    <?php } else { ?>
+        <?php require_once("root/composition/slider.php"); ?>
+        <?php require_once("root/composition/home-chocolate-about.php"); ?>
+        <?php require_once("root/composition/expansion-parallax-video.php"); ?>
+        <?php require_once("root/composition/home-grape-about.php"); ?>
+    <?php } ?>
 
-    <div id="slider">
-        <div class="sizer">
-            <div class="slider-container">
-                <div class="ls-wp-fullwidth-container" id="ls-wp-fullwidth-container">
-                    <div class="ls-wp-fullwidth-helper">
-                        <div id="sp_slider" class="ls-wp-container">
-                            <div class="ls-slide" data-ls="transition2d:33;">
-                                <img
-                                        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                        data-src="<?= IMAGES_PATH ?>welcome-to-shakeprime.png" class="ls-bg"
-                                        alt="fw-1"/>
-                                <!-- text layer -->
-                                <div class="container" style="position: relative;">
-                                    <h3 class="ls-l" data-ls="offsetxin: 0; offsetyin: -30;"
-                                        style="top: 30%; left: 50%;font-size:4em;color:#fff;text-align:center;max-width:550px;">
-                                        Uma Expansão de Sabores.</h3>
-                                    <p class="ls-l" data-ls="offsetxin: 0; offsetyin: -30;startatin:1000;"
-                                       style="top: 47%; left: 50%;font-size:1.5em;color:#fff;max-width:500px;text-align:center;">
-                                        Conheça a forma mais inteligente de aliar nutrição com sabores inesqueiveis e
-                                        conquistar sua independência desde o começo.
-                                        <button class="ls-l" data-ls="offsetxin: 0; offsetyin: -30;startatin:1000;"
-                                                style="top: 60%; left: 50%;font-size:1.5em;color:#fff;max-width:500px;text-align:center;">
-                                            Saibar Mais
-                                        </button>
-                                </div>
-                            </div>
-                            <div class="ls-slide" data-ls="transition2d:33;">
-                                <img
-                                        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                        data-src="<?= IMAGES_PATH ?>welcome-to-shakeprime-2.png" class="ls-bg"
-                                        alt="fw-1"/>
-                                <!-- text layer -->
-                                <div class="container" style="position: relative;">
-                                    <h3 class="ls-l" data-ls="offsetxin: 0; offsetyin: -30;"
-                                        style="top: 30%; left: 50%;font-size:4em;color:#fff;text-align:center;max-width:550px;">
-                                        Uma Expansão de Sabores.</h3>
-                                    <p class="ls-l" data-ls="offsetxin: 0; offsetyin: -30;startatin:1000;"
-                                       style="top: 47%; left: 50%;font-size:1.5em;color:#fff;max-width:500px;text-align:center;">
-                                        Conheça a forma mais inteligente de aliar nutrição com sabores inesqueiveis e
-                                        conquistar sua independência desde o começo.
-                                        <button class="ls-l" data-ls="offsetxin: 0; offsetyin: -30;startatin:1000;"
-                                                style="top: 60%; left: 50%;font-size:1.5em;color:#fff;max-width:500px;text-align:center;">
-                                            Saibar Mais
-                                        </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php require_once("root/composition/footer.php"); ?>
 
-    <section>
-        <div class="section  chocolat white">
-            <div class="container">
-                <div class="col col-6">
-                    <h2 class="color chocolat ruge blackcoffee">Sabe quando unir saúde com sabor parece impossível?<br/>Isso
-                        é
-                        passado!
-                    </h2>
-                    <p class="color chocolat large">Todos os produtos são referência em qualidade e contam com sabor
-                        inesquecível.<br/>As combinações são inúmeras para complementar sua dieta com gostinho de quero
-                        mais!</p>
-                    <button class="green">Conhecer Sabores</button>
-                </div>
-                <div class="col col-6">
-                    <img src="static/img/chocolate-sensation.png" class="chocolate-image" id="shakeChocoSensation"
-                         style="top:-100px"/>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="ParallaxVideo">
-            <video autoplay muted loop>
-                <source src="static/movie/shakeprime-project.mp4" type="video/mp4">
-            </video>
-            <div class="container" style="position: relative;">
-                <div class="overlayer"></div>
-                <div class="col col-6">
-                    <h2 class="color white ruge blackcoffee">Você sabia que isso tudo pode ser seu?
-                    </h2>
-                    <p class="color white large">Estamos em expansão acelerada e você pode participar dessa
-                        sintonia por uma vida mais saudável e feliz. </p>
-                    <p class="color white large">E ainda mais, contamos com um sistema exclusivo para te ajudar nesse
-                        novo passo, afinal, nossa missão é você feliz! </p>
-                    <button>Eu tenho interesse</button>
-                </div>
-                <div class="col col-6">&nbsp;</div>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </section>
-    <section>
-        <div class="section light-blue">
-            <div class="container" style="position: relative;">
-                <div class="col col-6">
-                    <img src="static/img/grape-shake.png" class="chocolate-image" id="shakeGrape"
-                         style="top:-440px;right:0;"/>
-                </div>
-                <div class="col col-6" style="text-align: center;">
-                    <h2 class="color grape ruge blackcoffee">#shakeprime</h2>
-                    <p class="color grape large">
-                        Siga e compartilhe o shakeprime nas mídias sociais e participe de promoções, eventos e sorteios
-                        exclusivos.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="section white footer">
-            <div class="container">
-                <div class="col col-3">
-                    <h1 class="company color blackwhite">ShakePrime</h1>
-                </div>
-                <div class="col col-3">
-                    <h4 class="blackcoffee">ShakePrime</h4>
-                    <ul class="navigation">
-                        <li><a href="./historia">Nossa História</a></li>
-                        <li><a href="./historia/missao">Missão</a></li>
-                        <li><a href="./projeto-social">Projeto Social</a></li>
-                    </ul>
-                </div>
-                <div class="col col-3">
-                    <h4 class="blackcoffee">Expansão</h4>
-                    <ul class="navigation">
-                        <li><a href="./expansao/como-funciona">Como funciona?</a></li>
-                        <li><a href="./expansao/cadastro">Cadastro</a></li>
-                        <li><a href="./pags/login">Intranet</a></li>
-                    </ul>
-                </div>
-                <div class="col col-3">
-                    <h4 class="blackcoffee">Fale com a gente</h4>
-                    <ul class="navigation">
-                        <li><a href="./contato">Suporte</a></li>
-                        <li><a href="./institucional">Institucional</a></li>
-                        <li><a href="./imprensa">Imprensa</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 </div>
 </body>

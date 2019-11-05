@@ -13,8 +13,8 @@ if ($isForceReset) {
     die();
 }
 
-$less->compileFile("static/less/pags.less", "static/stylesheet/pags.min.css");
-$less->compileFile("static/less/container.less", "static/stylesheet/container.min.css");
+//$less->compileFile("static/less/pags.less", "static/stylesheet/pags.min.css");
+//$less->compileFile("static/less/container.less", "static/stylesheet/container.min.css");
 //$less->compileFile("../../account/less/container.less", "account/css/container.min.css");
 
 
@@ -35,24 +35,21 @@ $less->compileFile("static/less/container.less", "static/stylesheet/container.mi
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta content="" name="description"/>
-    <meta content="" name="author"/>
+    <meta content="Hubwei Corporation" name="author"/>
     <link href="<?= PAGS_STYLESHEET ?>pags.min.css?v=<?php echo date("ymdhis"); ?>" rel="stylesheet" type="text/css"/>
     <link href="<?= PAGS_STYLESHEET ?>container.min.css" rel="stylesheet" type="text/css"/>
     <link href="<?= PAGS_STYLESHEET ?>fontawesome5.css" rel="stylesheet" type="text/css"/>
     <link href="<?= PAGS_STYLESHEET ?>sweetalert2.min.css?v=<?php echo date("ymdhis"); ?>" rel="stylesheet"
           type="text/css"/>
+    <link rel="stylesheet" href="<?= PAGS_STYLESHEET ?>tiny-slider.css">
     <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery-3.2.0.min.js"></script>
     <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>jquery.mask.js"></script>
-    <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/tiny-slider.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
+    <script type="text/javascript" src="<?= PAGS_JAVASCRIPT ?>sweetalert2.min.js"></script>
+    <script src="<?= PAGS_JAVASCRIPT ?>chart.js"></script>
     <!--[if (lt IE 9)]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.helper.ie8.js"></script>
+    <script src="<?=PAGS_JAVASCRIPT ?>tiny-slider.helper.ie8.js"></script>
     <![endif]-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
-
+    <script src="<?=PAGS_JAVASCRIPT ?>tiny-slider.js"></script>
 </head>
 <body>
 <div id="wrapper">

@@ -547,9 +547,9 @@ class Account
                             $database->bind(3, $this->getEmail());
                             $database->bind(4, $this->getUsername());
                             $database->bind(5, "Y");
-                            $database->bind(6, $this->getIsPrime());
-                            $database->bind(7, $this->getIsAdmin());
-                            $database->bind(8, $this->getForceReset());
+                            $database->bind(6, "N"); // $this->getIsPrime()
+                            $database->bind(7, "N"); // $this->getIsAdmin()
+                            $database->bind(8, "N"); // $this->getForceReset()
                             $database->bind(9, $logged);
                             $database->execute();
                             $id_account = $database->lastInsertId();
